@@ -1,0 +1,12 @@
+@import "src/styles";
+
+.container-fluid {
+  background: $color-segundo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+.hover-terminos:hover {
+  zoom: 110%;
+}
