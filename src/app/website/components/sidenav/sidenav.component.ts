@@ -49,47 +49,37 @@ export class SidenavComponent implements OnInit {
 
     constructor(public router: Router) {}
 
-    ngOnInit(): void {
-      /*   this._socket.conectar();
-        this._socket.emit('unirseSalaEmpresa', environment.rucEmpresa);
-        this._socket
-            .emit(`consultarModulosEmpresa`, {ruc: environment.rucEmpresa});
-        this._socket
-            .fromEvent(`respuestaModulosEmpresa`)
-            .subscribe({
-                next: (resp: any) => {
-                    console.log(resp)
-                    this.navData = resp;
-                },
-                complete: () => {
-                },
-                error: () => {
-                },
-            }) */
-
+    ngOnInit(): void {        
+        this.navData = navbarData;
         this.screenWidth = window.innerWidth;
     }
 
     toggleCollapse(): void {
+        console.log('toggleCollapse.....');
         this.collapsed = !this.collapsed;
         this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
     }
 
     closeSidenav(): void {
+        console.log('closeSidenav.....');
         this.collapsed = false;
         this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
     }
 
     handleClick(item: INavbarData): void {
+        console.log(item, 'handleClick.....');
         this.shrinkItems(item);
         item.expanded = !item.expanded
     }
 
     getActiveClass(data: INavbarData): string {
+        console.log('getActiveClass....', data);
         return this.router.url.includes(data.routeLink) ? 'active' : '';
     }
 
     shrinkItems(item: INavbarData): void {
+        console.log('shrinkItems....', item);
+        
         if (!this.multiple) {
             for (let modelItem of this.navData) {
                 if (item !== modelItem && modelItem.expanded) {

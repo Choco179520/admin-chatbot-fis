@@ -15,20 +15,16 @@ const routes: Routes = [
         component: LayoutComponent,
         // canActivate: [EstaLogeadoGuard],
         children: [
-            // {
-            //     path: 'menu',
-            //     loadChildren: () =>
-            //         import('./pages/menu/menu.module')
-            //             .then(adS => adS.MenuModule),
-            //     // canActivate: [EstaLogeadoGuard],
-            //     data: {
-            //         breadcrumb: 'administradores'
-            //     }
-            // },
-            // {
-            //     path: '**',
-            //     redirectTo: 'administracion-usuarios'
-            // },
+            {
+                path: '',
+                loadChildren: () =>
+                    import('./pages/menu/menu.module')
+                        .then(adS => adS.MenuModule),
+                // canActivate: [EstaLogeadoGuard],
+                data: {
+                    breadcrumb: 'administradores'
+                }
+            },
         ]
     },
     {

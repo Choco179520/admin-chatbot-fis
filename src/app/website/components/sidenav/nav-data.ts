@@ -2,34 +2,30 @@ import { INavbarData } from "./helper";
 
 export const navbarData: INavbarData[] = [
     {
-        routeLink: 'menu/administracion-usuarios',
-        icon: 'assets/iconos/group.png',
+        routeLink: './administracion-usuarios/gestion-usuarios',
+        icon: 'assets/icons/usuario.svg',
         label: 'ADMINISTRACIÓN USUARIOS',
         items: [
-            {
-                routeLink: './menu/administracion-usuarios/administradores',
-                label: 'Administradores',
-            }
+            // {
+            //     routeLink: './administracion-usuarios/gestion-usuarios',
+            //     label: 'Administradores',
+            // }
         ]
     },
     {
-        routeLink: 'menu/configuracion',
-        icon: 'assets/iconos/settings.png',
+        routeLink: './configuracion/gestion-nivel-1',
+        icon: 'assets/icons/configuracion.svg',
         label: 'CONFIGURACIÓN',
         items: [
-            {
-                routeLink: './menu/configuracion/modulos',
-                label: 'Módulos',
-            },
-            {
-                routeLink: './menu/configuracion/empresas',
-                label: 'Empresas',
-            }
+            // {
+            //     routeLink: './configuracion/gestion-nivel-1',
+            //     label: 'Módulos',
+            // },
         ]
     },
     {
-        routeLink: 'menu/cerrar-sesion',
-        icon: 'assets/iconos/logout.svg',
+        routeLink: './cerrar-sesion',
+        icon: 'assets/iconos/logout.png',
         label: 'CERRAR SESIÓN',
         items: [
             {
