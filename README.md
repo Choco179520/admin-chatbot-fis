@@ -28,3 +28,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ng g module website/pages/menu --routing
+
+ng g component website/pages/login/components/formulario-inicio-sesion

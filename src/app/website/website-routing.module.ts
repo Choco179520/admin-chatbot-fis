@@ -4,7 +4,37 @@ import {LayoutComponent} from "./components/layout/layout.component";
 import {EstaLogeadoGuard} from "../core/services/guards/esta-logeado.guard";
 
 const routes: Routes = [
-    
+    {
+        path: 'login',
+        loadChildren: () =>
+            import('./pages/login/login.module')
+                .then(mod => mod.LoginModule)
+    },
+    {
+        path: 'menu',
+        component: LayoutComponent,
+        // canActivate: [EstaLogeadoGuard],
+        children: [
+            // {
+            //     path: 'menu',
+            //     loadChildren: () =>
+            //         import('./pages/menu/menu.module')
+            //             .then(adS => adS.MenuModule),
+            //     // canActivate: [EstaLogeadoGuard],
+            //     data: {
+            //         breadcrumb: 'administradores'
+            //     }
+            // },
+            // {
+            //     path: '**',
+            //     redirectTo: 'administracion-usuarios'
+            // },
+        ]
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
+    },
 ];
 
 @NgModule({

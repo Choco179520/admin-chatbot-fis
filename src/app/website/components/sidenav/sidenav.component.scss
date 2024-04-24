@@ -1,7 +1,7 @@
 @import "src/styles.scss";
 
 .sidenav {
-  background: $color-primero;;
+  background: $color-1;
   transition: all .5s ease;
   position: fixed;
   z-index: 1;
@@ -31,9 +31,9 @@
 
     .logo-text {
       margin-left: 1.5rem;
-      font-size: $tamanio-titulo;
+      font-size: $tamano-fuente-1;
       font-weight: 700;
-      color: $color-quinto;
+      color: $color-1;
     }
 
     .btn-close {
@@ -43,12 +43,12 @@
       height: 2rem;
       border-radius: 50%;
       // background-color: transparent;
-      background-color: $color-primero;
+      background-color: $color-1;
       border: none;
 
       .fa-times {
-        color: $color-quinto;
-        font-size: $tamanio-titulo;
+        color: $color-1;
+        font-size: $tamano-fuente-1;
       }
     }
   }
@@ -76,7 +76,7 @@
       display: flex;
       align-items: center;
       height: 2.6rem;
-      color: $color-quinto;
+      color: $color-1;
       text-decoration: none;
       border-radius: 0.625rem;
       transition: all .3s ease;
@@ -95,29 +95,29 @@
 
       .sidenav-link-text {
         //margin-left: 1.5rem;
-        font-size: $tamanio-principal;
+        font-size: $tamano-fuente-1;
         margin-left: 1.5rem;
       }
     }
 
     .sidenav-nav-link:hover {
-      background-color: $color-segundo;
-      color: $color-tercero;
+      background-color: $color-2;
+      color: $color-3;
 
       .menu-collapse-icon {
-        color: $color-quinto;
+        color: $color-1;
       }
     }
   }
 }
 
 .active {
-  background-color: $color-segundo;
+  background-color: $color-2;
 
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: $color-quinto;
+    color: $color-1;
   }
 }
 
@@ -159,7 +159,7 @@
       }
 
       .sublevel-link-text {
-        font-size: $tamanio-texto;
+        font-size: $tamano-fuente-3;
         margin-left: 0.8rem;
       }
     }

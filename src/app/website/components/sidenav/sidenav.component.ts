@@ -3,7 +3,6 @@ import {fadeInOut, INavbarData} from "./helper";
 import {animate, keyframes, style, transition, trigger} from "@angular/animations";
 import {navbarData} from "./nav-data";
 import {Router} from "@angular/router";
-import {SocketService} from "../../../core/services/sockets/socket.service";
 import {environment} from "../../../../environments/environment";
 
 interface SideNavToggle {
@@ -30,8 +29,6 @@ interface SideNavToggle {
     ]
 })
 export class SidenavComponent implements OnInit {
-
-    private _socket = inject(SocketService)
 
     @Input() navDatas: any;
 
