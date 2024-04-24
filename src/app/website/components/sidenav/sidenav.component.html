@@ -1,9 +1,6 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <!--        <button class="logo" (click)="toggleCollapse()">-->
-        <!--            <span id="rock"></span>-->
-        <!--        </button>-->
-        <img alt="icono-empresa" (click)="toggleCollapse()" class="logo" src="assets/iconos/logo_imaksmart.png">
+        <img alt="icono-empresa" (click)="toggleCollapse()" class="logo" src="assets/images/epn-transparente.png">
         <div class="logo-text" @fadeInOut *ngIf="collapsed">EPN</div>
         <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>

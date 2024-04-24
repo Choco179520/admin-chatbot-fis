@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
 import {
-  COOKIE_INFO_SOCIO,
   COOKIE_JWT_TOKEN,
 } from "../../constants/nombres-cookies.constantes";
 
@@ -48,7 +47,6 @@ export class CookiesService {
   /** ELIMINAR COOKIE POR EXPIRACION DE TIEMPO */
   eliminarCookieCierreFlujo() {
     this._cookieService.delete(COOKIE_JWT_TOKEN);
-    this._cookieService.delete(COOKIE_INFO_SOCIO);
   }
 
   /** ALMACENAR EN SESION STORAGE UN VALOR */

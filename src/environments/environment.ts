@@ -4,12 +4,14 @@
 
 export const environment = {
   production: false,
-  // host: 'http://192.168.100.24:3000', // imak
-  // host: 'https://192.168.100.57:3001', // casa
   host: 'https://localhost:3000', // casa
   pathApi: 'api-backoffice',
-  hostSocket: 'http://localhost:80',
-  rucEmpresa: '1760109823001',
+  permisosAzure: ['user.read','openid', 'profile'],
+  urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
+  clientId: 'f9460765-2e51-4f7a-97a0-a81164fb1aeb',
+  tenantId: '682a4e6a-a77f-4958-a3ac-9e266d18aa37',
+  urlMicrosoft: 'https://login.microsoftonline.com/',
+  redirectUri: 'http://localhost:4200/inicio-sesion',
 };
 
 /*

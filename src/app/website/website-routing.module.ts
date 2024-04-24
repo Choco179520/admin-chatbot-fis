@@ -5,7 +5,7 @@ import {EstaLogeadoGuard} from "../core/services/guards/esta-logeado.guard";
 
 const routes: Routes = [
     {
-        path: 'login',
+        path: '',
         loadChildren: () =>
             import('./pages/login/login.module')
                 .then(mod => mod.LoginModule)
@@ -33,7 +33,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'login'
+        redirectTo: ''
     },
 ];
 
