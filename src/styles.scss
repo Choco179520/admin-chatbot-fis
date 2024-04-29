@@ -183,14 +183,18 @@ $border-radius-botones: 10px;
   background: $color-2;
 }
 
-:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody>tr>td .p-column-title {
   display: none;
 }
+
 @media screen and (max-width: 55rem) {
-  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
+
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead>tr>th,
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot>tr>td {
     display: none !important;
   }
-  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td {
+
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td {
     text-align: left;
     display: block;
     width: 100%;
@@ -198,14 +202,16 @@ $border-radius-botones: 10px;
     clear: left;
     border: 0 none;
   }
-  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td .p-column-title {
     padding: 0.4rem;
     min-width: 30%;
     display: inline-block;
     margin: -0.4em 1em -0.4em -0.4rem;
     font-weight: bold;
   }
-  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td:last-child {
+
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody>tr>td:last-child {
     border-bottom: 1px solid var(--surface-d);
   }
 }
@@ -323,4 +329,34 @@ $border-radius-botones: 10px;
   background: $color-1;
   width: 25rem;
   border-radius: 15px;
+}
+
+/** SEARCH **/
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 8px;
+  padding-left: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px 0px 0px 12px;
+  font-size: 16px;
+  height: 50px;
+}
+
+.search-container button {
+  background-color: $color-1;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 0px 12px 12px 0px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.search-container button:hover {
+  background-color: $color-1;
 }

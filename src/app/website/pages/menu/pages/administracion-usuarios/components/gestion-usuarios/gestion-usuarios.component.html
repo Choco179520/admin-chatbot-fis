@@ -4,7 +4,13 @@
     </div>
 
     <div class="row">
-        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 col-sm-12">
+        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 col-sm-12 mb-4">
+            <form [formGroup]="formularioBusqueda">
+                <div class="search-container">
+                    <input formControlName="search" type="text" placeholder="Buscar por nombre o email">
+                    <button readonly><img src="assets/icons/search.svg"></button>
+                  </div>   
+            </form>           
         </div>
 
         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2">
@@ -39,13 +45,12 @@
 
                             <div *ngIf="col.field==='estado'" style="font-size: 14px">
                                 <div class="d-grid gap-2">
-                                    <button class="btn boton-general"
-                                            (click)="changeState(rowData, ri)" [ngClass]="{
+                                    <button class="btn boton-general" (click)="changeState(rowData, ri)" [ngClass]="{
                                       'btn-danger':rowData[col.field] === estados.Inactivo,
                                       'btn-success':rowData[col.field] === estados.Activo
-                                      }">{{rowData[col.field]  === estados.Activo? 'Activo':'Inactivo'}}
+                                      }">{{rowData[col.field] === estados.Activo? 'Activo':'Inactivo'}}
                                     </button>
-                                  </div>
+                                </div>
                             </div>
 
                             <div *ngIf="col.field==='telefono'" style="font-size: 14px">
@@ -81,21 +86,6 @@
                         </td>
                     </tr>
                 </ng-template>
-
-                <!-- <ng-template pTemplate="footer">
-    <tr >
-        <td style="text-align:center"> TOTAL </td>
-        <td></td>
-        <td style="text-align:center"> {{ totalRecords | number}} </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td *ngIf="informacionQuery.idModulo === 1 || informacionQuery.idModulo === 2"> </td>
-        <td style="text-align:center"> {{ informacionQuery.banred | currency }}</td>
-        <td></td>
-    </tr>
-    </ng-template> -->
             </p-table>
         </div>
     </div>

@@ -1,0 +1,18 @@
+<div class="container-bloqueo">
+    <div class="name" (click)="selectOpcion('select')">
+        <p><strong>Nombre:</strong> {{register.id}}</p>
+    </div>
+    <div class="count" (click)="selectOpcion('select')">
+        <p><strong>Registros:</strong> {{register.count}}</p>
+    </div>
+    <div class="delete">
+        <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
+            <img src="assets/icons/delete.svg" alt="Icono">
+        </button>
+    </div>
+    <div class="edit">
+        <button class="btn boton-4 mx-3 mb-2" (click)="selectOpcion('edit')">
+            <img src="assets/icons/edit.svg" alt="Icono">
+        </button>
+    </div>
+</div>

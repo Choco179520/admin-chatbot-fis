@@ -1,1 +1,83 @@
-<p>gestion-respuestas works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <h4>GESTION RESPUESTAS {{nivel3 | tituloPipe}}</h4>
+
+        <div class="col-12 mb-3">
+            <p-breadcrumb class="max-w-full" (onItemClick)="onItemClick($event)" [model]="items"></p-breadcrumb>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-8 col-sm-6 col-12 col-sm-12 mb-4">
+            <form [formGroup]="formularioBusqueda">
+                <div class="search-container">
+                    <input formControlName="search" type="text" placeholder="Buscar por la respuesta">
+                    <button readonly><img src="assets/icons/search.svg"></button>
+                </div>
+            </form>
+        </div>
+
+        <div
+            class="offset-xxl-2 col-xxl-3 offset-xl-2 col-xl-3 offset-lg-2 col-lg-3 offset-md-1 col-md-3 col-sm-6 col-12 col-sm-12 d-grid gap-2 mb-4">
+            <button (click)="newResponse()" class="btn boton-1" type="button">Agregar</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 2rem;">
+        <p-table [value]="registros" [totalRecords]="totalRecords" [loading]="loading" [columns]="columnas"
+            editMode="row" dataKey="id" styleClass="p-datatable-responsive-demo" [scrollable]="true"
+            scrollHeight="650px">
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" id="columnas" class="font-weight-bold text-center"
+                        style="font-size: 10px">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-ri="rowIndex">
+                <tr>
+                    <td *ngFor="let col of columns" pEditableColumn style="text-align:center">
+                        <div *ngIf="col.field==='identificador'" style="font-size: 14px">
+                            {{ri}}
+                        </div>
+
+                        <div *ngIf="col.field==='response'" style="font-size: 14px">
+                            {{rowData?.response ? rowData?.response : 'No tiene'}}
+                        </div>
+
+                        <div *ngIf="col.field==='nombre'" style="font-size: 14px">
+                            <h6> {{rowData?.nombre ? rowData?.nombre : 'No tiene'}} </h6>
+                            <p> {{rowData?.email ? rowData?.email : 'No tiene'}} </p>
+                        </div>
+
+                        <div *ngIf="col.field==='type'" style="font-size: 14px">
+                            <p>{{rowData?.type ? rowData?.type : 'No tiene'}}</p>
+                        </div>
+
+                        <div *ngIf="col.field==='acciones'" style="font-size: 14px">
+                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
+                                <img src="assets/icons/delete.svg" alt="Icono">
+                            </button>
+
+                            <button class="btn boton-4 mx-3 mb-2" (click)="edit(rowData, ri)">
+                                <img src="assets/icons/edit.svg" alt="Icono">
+                            </button> 
+                        </div>
+
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="13">
+                        NO EXISTEN REGISTROS DESCARGAR O FILTRAR PARA VER LOS REGISTROS ANTERIORES
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+@import "src/styles";
+
+.container-bloqueo {
+    border-radius: 12px;
+    background: #D9D9D9;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "name delete"
+        "count edit"
+        "botones botones";
+
+    .delete {
+        justify-self: end;
+        align-self: end;
+        grid-area: delete;
+    }
+
+    .edit {
+        justify-self: end;
+        align-self: start;
+        grid-area: edit;
+    }
+
+    .name {
+        align-self: end;
+        grid-area: name;
+    }
+
+    .count {
+        align-self: start;
+        grid-area: count;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 90%;
+    }
+
+    .botones {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+            "utterences responses";
+        grid-area: botones;
+
+        .utterences {
+            justify-self: center;
+            align-self: center;
+            grid-area: utterences;
+
+            p {
+                border-radius: 20px;
+                background: #FFFFFF;
+                padding-block: 0.5rem;
+                padding-inline: 1.5rem;
+                text-align: center;
+                font-size: 11px;
+            }
+        }
+
+        .responses {
+            justify-self: center;
+            align-self: center;
+            grid-area: responses;
+
+            p {
+                border-radius: 20px;
+                background: #FFFFFF;
+                padding-block: 0.5rem;
+                padding-inline: 1.5rem;
+                text-align: center;
+                font-size: 11px;
+            }
+        }
+    }
+}

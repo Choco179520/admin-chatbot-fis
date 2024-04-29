@@ -12,6 +12,7 @@ import { ESTADOS } from "src/app/core/enums/estados";
 import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 import { ModalInterface } from "src/app/core/interfaces/modal.interface";
 import { COLOR_PRIMARIO } from "src/app/core/constants/colores-constantes";
+import { FormGroup, FormBuilder, FormControl, AbstractControl } from "@angular/forms";
 
 @Component({
   selector: "app-gestion-usuarios",
@@ -19,6 +20,8 @@ import { COLOR_PRIMARIO } from "src/app/core/constants/colores-constantes";
   styleUrls: ["./gestion-usuarios.component.scss"],
 })
 export class GestionUsuariosComponent implements OnInit {
+  formularioBusqueda!: FormGroup | any;
+
   registros: any = [];
   usuarios: any = [];
   totalRecords!: number;
@@ -30,18 +33,42 @@ export class GestionUsuariosComponent implements OnInit {
   constructor(
     private readonly _usuarioService: UsuarioService,
     private readonly _dialog: MatDialog,
-    private readonly _modalGeneralService: ModalGeneralService
+    private readonly _modalGeneralService: ModalGeneralService,
+    private readonly _formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
+
+    this.formInicializar();
+    this.escucharCampoBusqueda();
+  }
+
+  formInicializar() {
+    this.registros = this.registros;
+    this.formularioBusqueda = this._formBuilder.group({
+      search: new FormControl(''),
+    });
+  }
+
+  escucharCampoBusqueda(): void {
+    const busquedaC = this.campoBusqueda;
+    busquedaC.valueChanges.subscribe((bus) => {      
+      this.registros = this.usuarios.filter((entidad: any) =>
+        entidad.nombre.toLowerCase().includes(bus.toLowerCase()) ||
+        entidad.email.toLowerCase().includes(bus.toLowerCase())
+      );      
+    });
+  }
+
+  get campoBusqueda(): AbstractControl {
+    return this.formularioBusqueda.get('search') as FormControl;
   }
 
   getUsers() {
     this._usuarioService.getUsers().subscribe({
       next: (respUsers) => {
         console.log(respUsers, ";respuesta findall...");
-
         this.usuarios = respUsers;
         this.registros = this.usuarios;
       },
@@ -71,6 +98,7 @@ export class GestionUsuariosComponent implements OnInit {
         this._usuarioService.postUsuario(jsonUser).subscribe({
           next: (respUser: any) => {
             this.usuarios.unshift(respUser);
+            this.registros = this.usuarios;
           },
           error: (err) => {
             console.error(err, "error...");
@@ -93,6 +121,7 @@ export class GestionUsuariosComponent implements OnInit {
       next: (resp) => {
         this.loading = false;
         this.usuarios[ri].estado = resp.estado;
+        this.registros = this.usuarios;
       },
       error: (err) => {
         this.loading = false;
@@ -132,6 +161,7 @@ export class GestionUsuariosComponent implements OnInit {
             this.usuarios[ri].email = respUser.email;
             this.usuarios[ri].rol = respUser.rol;
             this.usuarios[ri].telefono = respUser.telefono;
+            this.registros = this.usuarios;
           },
           error: (err) => {
             console.error(err, "error...");
@@ -165,6 +195,7 @@ export class GestionUsuariosComponent implements OnInit {
         next: (respDelete) => {
           console.log(respDelete, "respDelete....");
           this.usuarios.splice(ri, 1);
+          this.registros = this.usuarios;
           this.loading = false;
         },
         error: (err) => {

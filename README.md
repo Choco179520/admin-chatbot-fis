@@ -32,3 +32,7 @@ ng g module website/pages/menu/pages/configuracion --routing
 ng g component website/pages/menu/pages/administracion-usuarios/modals/agregar-editar-usuario
 
 
+
+ng g component shared/components/tarjeta-ultimo-nivel
+
+ng g component  website/pages/menu/pages/configuracion/modals/agregar-editar-respuestas

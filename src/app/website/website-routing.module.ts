@@ -20,10 +20,6 @@ const routes: Routes = [
                 loadChildren: () =>
                     import('./pages/menu/menu.module')
                         .then(adS => adS.MenuModule),
-                // canActivate: [EstaLogeadoGuard],
-                data: {
-                    breadcrumb: 'administradores'
-                }
             },
         ]
     },

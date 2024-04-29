@@ -1,0 +1,31 @@
+<div class="container-fluid formulario-container">
+    <form [formGroup]="formExpression" class="formulario">
+        <div class="grid">
+            <div class="row cabecera">
+                <h4> {{ data ? 'EDITAR' : 'CREAR'}} EXPRESIÓN </h4>
+
+                <p>Llene los campos necesarios para {{ data ? 'editar' : 'agregar'}} una expresión</p>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="names">Expresión:</label>
+                        <input style="height: 50px;" type="text" formControlName="expression" class="form-control"
+                            id="names" name="names">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button [disabled]="formExpression.invalid" (click)="acept()" class="btn boton-1" type="button">Aceptar</button>
+                </div>
+                <div style="margin-bottom: 2rem;" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button (click)="cancel()" class="btn boton-2" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
