@@ -12,6 +12,7 @@ import {
   PublicClientApplication,
 } from '@azure/msal-browser';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -33,7 +34,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     BrowserAnimationsModule,
     NgxSpinnerModule,
     SharedModule,
-    MsalModule
+    MsalModule,
+    HttpClientModule
   ],
   providers: [
     {

@@ -56,6 +56,8 @@ body {
 $color-1: #063E57;
 $color-2: #D9D9D9;
 $color-3: #222A36;
+$color-4: #CBD5E1;
+$color-5: #64748B;
 
 $tamano-fuente-1: 16px;
 $tamano-fuente-2: 14px;
@@ -69,6 +71,12 @@ $border-radius-botones: 10px;
 
 .color-2 {
   color: $color-2;
+}
+
+.boton-general {
+  font-weight: 600;
+  border-radius: $border-radius-botones;
+  height: 50px;
 }
 
 .boton-1 {
@@ -101,14 +109,46 @@ $border-radius-botones: 10px;
   opacity: 0.5;
 }
 
-
 .boton-3 {
-  border-color: $color-3;
-  background: #e7e7e7;
   color: black;
+  font-weight: 700;
+  background-color: $color-3;
   border-radius: $border-radius-botones;
   height: 50px;
-  // width: 100%;
+}
+
+.boton-3:active {
+  color: #ffffff;
+  background-color: $color-3;
+  opacity: 0.5;
+}
+
+.boton-4 {
+  color: black;
+  font-weight: 700;
+  background-color: $color-4;
+  border-radius: $border-radius-botones;
+  height: 50px;
+}
+
+.boton-4:active {
+  color: #ffffff;
+  background-color: $color-4;
+  opacity: 0.5;
+}
+
+.boton-5 {
+  color: black;
+  font-weight: 700;
+  background-color: $color-5;
+  border-radius: $border-radius-botones;
+  height: 50px;
+}
+
+.boton-5:active {
+  color: #ffffff;
+  background-color: $color-4;
+  opacity: 0.5;
 }
 
 .centrar-imagen {
@@ -121,6 +161,54 @@ $border-radius-botones: 10px;
   padding-bottom: 3rem;
 }
 
+/* TABLAS */
+.p-datatable .p-datatable-thead>tr>th {
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #9dabb9;
+  border-width: 0 0 1px 0;
+  font-weight: 600;
+  color: #000000;
+  background: $color-1;
+  transition: box-shadow 0.2s;
+}
+
+.p-datatable .p-datatable-tfoot>tr>td {
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid $color-2;
+  border-width: 0 0 1px 0;
+  font-weight: 00;
+  color: #ffffff;
+  background: $color-2;
+}
+
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+@media screen and (max-width: 55rem) {
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    width: 100%;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4em 1em -0.4em -0.4rem;
+    font-weight: bold;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td:last-child {
+    border-bottom: 1px solid var(--surface-d);
+  }
+}
 
 .screen1 {
   height: 100%;
@@ -131,7 +219,7 @@ $border-radius-botones: 10px;
   min-height: calc(100vh - 13vh);
 }
 
-.screen1{
+.screen1 {
   .info {
     width: 60%;
     height: 100%;
@@ -179,7 +267,7 @@ $border-radius-botones: 10px;
 }
 
 @media (max-width: 580px) {
-  .screen1{
+  .screen1 {
     .info {
 
       img {
@@ -230,3 +318,9 @@ $border-radius-botones: 10px;
   }
 }
 
+/** SWAL ALERT **/
+.swal2-styled.swal2-confirm.swalBtnColor {
+  background: $color-1;
+  width: 25rem;
+  border-radius: 15px;
+}

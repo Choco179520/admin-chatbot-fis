@@ -1,1 +1,63 @@
-<p>agregar-editar-usuario works!</p>
+<div class="container-fluid formulario-container">
+    <form [formGroup]="formUser" class="formulario">
+        <div class="grid">
+            <div class="row cabecera">
+                <h4> {{ data ? 'EDITAR' : 'CREAR'}} USUARIO ADMINISTRADOR </h4>
+
+                <p>Llene los campos necesarios para el usuario</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico:</label>
+                        <input style="height: 50px;" type="text" formControlName="email" class="form-control"
+                            id="email" name="email">
+                    </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button (click)="search()" class="btn boton-1" type="button">Buscar</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="names">Nombres:</label>
+                        <input style="height: 50px;" type="text" formControlName="names" class="form-control"
+                            id="names" name="names">
+                    </div>
+                </div>
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="phone">Celular:</label>
+                        <input style="height: 50px;" minlength="10" maxlength="10" type="tel" formControlName="phone" class="form-control"
+                            id="phone" name="phone">
+                    </div>
+                </div>
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="nombre">Rol:</label>
+                        <select formControlName="rol" style="height: 50px;" class="form-select" aria-label="Default select example">
+                            <option selected>Seleccionar Rol</option>
+                            <option value="ADMIN">Administrador</option>
+                            <option value="BASIC">Usuario</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button [disabled]="formUser.invalid" (click)="acept()" class="btn boton-1" type="button">Aceptar</button>
+                </div>
+                <div style="margin-bottom: 2rem;" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button (click)="cancel()" class="btn boton-2" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

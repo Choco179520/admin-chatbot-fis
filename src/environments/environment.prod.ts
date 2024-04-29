@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   host: 'https://localhost:3000', // casa
-  pathApi: 'api-backoffice',
+  pathApi: 'api-backoffice-chatbot',
   permisosAzure: ['user.read','openid', 'profile'],
   urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
   clientId: 'f9460765-2e51-4f7a-97a0-a81164fb1aeb',

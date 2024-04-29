@@ -1,16 +1,102 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <h4>GESTION DE USUARIOS</h4>
     </div>
 
     <div class="row">
-        <div
-            class="col-xxl-9 text-xxl-end col-xl-9 text-xl-end col-lg-9 text-lg-end col-md-8 text-md-end col-sm-6 text-sm-end col-12 col-sm-12 text-center">
+        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 col-sm-12">
         </div>
 
-        <div
-            class="col-xxl-3 text-xxl-end col-xl-3 text-xl-end col-lg-3 text-lg-end col-md-4 text-md-end col-sm-6 text-sm-end col-12 col-sm-12 text-center d-grid gap-2">
-            <button class="btn boton-1" type="button">Agregar</button>
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2">
+            <button (click)="newUser()" class="btn boton-1" type="button">Agregar</button>
+        </div>
+
+        <div class="row" style="margin-top: 2rem;">
+            <p-table [value]="registros" [totalRecords]="totalRecords" [loading]="loading" [columns]="columnas"
+                editMode="row" dataKey="id" styleClass="p-datatable-responsive-demo" [scrollable]="true"
+                scrollHeight="650px">
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" id="columnas" class="font-weight-bold text-center"
+                            style="font-size: 10px">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-ri="rowIndex">
+                    <tr>
+                        <td *ngFor="let col of columns" pEditableColumn style="text-align:center">
+                            <div *ngIf="col.field==='id'" style="font-size: 14px">
+                                {{rowData?.id ? rowData?.id : 'No tiene'}}
+                            </div>
+
+                            <div *ngIf="col.field==='nombre'" style="font-size: 14px">
+                                <h6> {{rowData?.nombre ? rowData?.nombre : 'No tiene'}} </h6>
+                                <p> {{rowData?.email ? rowData?.email : 'No tiene'}} </p>
+                            </div>
+
+                            <div *ngIf="col.field==='estado'" style="font-size: 14px">
+                                <div class="d-grid gap-2">
+                                    <button class="btn boton-general"
+                                            (click)="changeState(rowData, ri)" [ngClass]="{
+                                      'btn-danger':rowData[col.field] === estados.Inactivo,
+                                      'btn-success':rowData[col.field] === estados.Activo
+                                      }">{{rowData[col.field]  === estados.Activo? 'Activo':'Inactivo'}}
+                                    </button>
+                                  </div>
+                            </div>
+
+                            <div *ngIf="col.field==='telefono'" style="font-size: 14px">
+                                <p>{{rowData?.telefono ? rowData?.telefono : 'No tiene'}}</p>
+                            </div>
+
+                            <div *ngIf="col.field==='rol'" style="font-size: 14px">
+                                <p>{{rowData?.rol ? rowData?.rol : 'No tiene'}}</p>
+                            </div>
+
+                            <div *ngIf="col.field==='fechaUltimoAcceso'" style="font-size: 14px">
+                                <p>{{rowData?.fechaUltimoAcceso ? rowData?.fechaUltimoAcceso : 'No tiene'}}</p>
+                            </div>
+
+                            <div *ngIf="col.field==='acciones'" style="font-size: 14px">
+                                <button class="btn boton-5 mx-3 mb-2" (click)="deleteUser(rowData, ri)">
+                                    <img src="assets/icons/delete.svg" alt="Icono">
+                                </button>
+
+                                <button class="btn boton-4 mx-3 mb-2" (click)="editUser(rowData, ri)">
+                                    <img src="assets/icons/edit.svg" alt="Icono">
+                                </button>
+                            </div>
+
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="13">
+                            NO EXISTEN REGISTROS DESCARGAR O FILTRAR PARA VER LOS REGISTROS ANTERIORES
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- <ng-template pTemplate="footer">
+    <tr >
+        <td style="text-align:center"> TOTAL </td>
+        <td></td>
+        <td style="text-align:center"> {{ totalRecords | number}} </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td *ngIf="informacionQuery.idModulo === 1 || informacionQuery.idModulo === 2"> </td>
+        <td style="text-align:center"> {{ informacionQuery.banred | currency }}</td>
+        <td></td>
+    </tr>
+    </ng-template> -->
+            </p-table>
         </div>
     </div>
 </div>

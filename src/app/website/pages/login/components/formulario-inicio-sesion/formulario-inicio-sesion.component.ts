@@ -21,30 +21,32 @@ export class FormularioInicioSesionComponent implements OnInit {
   inicioOffice() {
     console.log("inicio de sesion......");
 
-    this._router
-    .navigateByUrl('/menu', { skipLocationChange: true })
-    .then(() => {
-      // this._router.navigate(['./menu-principal']).then();
-    });
-    // this._msalService.instance
-    //   .handleRedirectPromise()
-    //   .then((res) => {
-    //     console.log(res, "respuesta......");
+    // this._router
+    // .navigateByUrl('/menu', { skipLocationChange: true })
+    // .then(() => {
+    // this._router.navigate(['./menu-principal']).then();
+    // });
+    this._msalService.instance
+      .handleRedirectPromise()
+      .then((res) => {
+        console.log(res, "respuesta......");
 
-    //     try {
-    //       this.metodoJc();
-    //     } catch (err) {
-    //       // this._cargandoService.deshabilitarCargando();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     // this._cargandoService.deshabilitarCargando();
-    //   });
+        try {
+          this.metodoJc();
+        } catch (err) {
+          // this._cargandoService.deshabilitarCargando();
+        }
+      })
+      .catch((err) => {
+        // this._cargandoService.deshabilitarCargando();
+      });
   }
 
   metodoJc() {
     lastValueFrom(this._msalService.loginPopup())
       .then((res: any) => {
+        console.log(res, 'loginPopup response....');
+        
         const consultaDatos = {
           nombre: res.account.name,
           correo: res.account.username,
