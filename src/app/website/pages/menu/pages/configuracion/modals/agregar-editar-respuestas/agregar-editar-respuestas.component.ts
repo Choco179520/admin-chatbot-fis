@@ -4,6 +4,7 @@ import {
   FormBuilder,
   FormControl,
   Validators,
+  AbstractControl,
 } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AgregarEditarUsuarioComponent } from "../../../administracion-usuarios/modals/agregar-editar-usuario/agregar-editar-usuario.component";
@@ -30,10 +31,14 @@ export class AgregarEditarRespuestasComponent implements OnInit {
   formInicializar() {
     this.formResponse = this._formBuilder.group({
       type: new FormControl(
-        this.data?.data?.email ?? "",
+        this.data?.data?.email ?? "text",
         Validators.compose([Validators.required])
       ),
       content: new FormControl(
+        this.data?.data?.nombre ?? "",
+        Validators.compose([Validators.minLength(10)])
+      ),
+      action: new FormControl(
         this.data?.data?.nombre ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
@@ -50,6 +55,10 @@ export class AgregarEditarRespuestasComponent implements OnInit {
         Validators.compose([Validators.minLength(10)])
       ),
     });
+  }
+
+  get campoType(): AbstractControl {
+    return this.formResponse.get('type') as FormControl;
   }
 
   acept() {

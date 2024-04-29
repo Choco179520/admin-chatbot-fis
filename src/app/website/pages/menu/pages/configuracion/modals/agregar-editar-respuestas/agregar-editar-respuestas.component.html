@@ -12,7 +12,6 @@
                     <div class="form-group">
                         <label for="nombre">Tipo:</label>
                         <select formControlName="type" style="height: 50px;" class="form-select" aria-label="Default select example">
-                            <option selected>Selecciona el tipo</option>
                             <option value="text">Text</option>
                             <option value="image">Image</option>
                             <option value="link">Link</option>
@@ -23,7 +22,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                <div *ngIf="campoType.value == 'text'" class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="names">Contenido:</label>
                         <input style="height: 50px;" type="text" formControlName="content" class="form-control"
@@ -31,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                <div *ngIf="campoType.value == 'link' || campoType.value == 'image'" class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="names">Path:</label>
                         <input style="height: 50px;" type="text" formControlName="path" class="form-control"
@@ -39,7 +38,15 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                <div *ngIf="campoType.value == 'action'"  class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="names">Acción:</label>
+                        <input style="height: 50px;" type="text" formControlName="action" class="form-control"
+                            id="names" name="names">
+                    </div>
+                </div>
+
+                <div *ngIf="campoType.value == 'action' || campoType.value == 'link'"  class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="names">Nombre:</label>
                         <input style="height: 50px;" type="text" formControlName="name" class="form-control"
@@ -47,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                <div *ngIf="campoType.value == 'image'"  class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="names">Etiqueta imagen:</label>
                         <input style="height: 50px;" type="text" formControlName="alt" class="form-control"
