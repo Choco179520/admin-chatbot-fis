@@ -1,27 +1,26 @@
 <div class="container-bloqueo">
-
-    <div class="name">
+    <div class="texto">
         <p><strong>id:</strong> {{register.id}}</p>
-    </div>
-    <div class="count">
-        <p><strong>Título:</strong> {{register.title}}</p>
-    </div>
-    <div class="delete">
-        <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
-            <img src="assets/icons/delete.svg" alt="Icono">
-        </button>
-    </div>
-    <div class="edit">
-        <button class="btn boton-4 mx-3 mb-2" (click)="selectOpcion('edit')">
-            <img src="assets/icons/edit.svg" alt="Icono">
-        </button>
+        <h6><strong>Título:</strong> {{register.title}}</h6>
     </div>
     <div class="botones">
-        <div class="utterences" (click)="selectOpcion('utterences')">
-            <p><strong>Utterances:</strong> {{register.utterances.length}}</p>
+        <div class="editar">
+            <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
+                <img src="assets/icons/delete.svg" alt="Icono">
+            </button>
+        </div>
+        <div class="eliminar">
+            <button class="btn boton-4 mx-3 mb-2" (click)="selectOpcion('edit')">
+                <img src="assets/icons/edit.svg" alt="Icono">
+            </button>
+        </div>
+    </div>
+    <div class="opciones">
+        <div class="utterances" (click)="selectOpcion('utterences')">
+            <p><strong>Utterances:</strong> {{register.utterances}}</p>
         </div>
         <div class="responses" (click)="selectOpcion('responses')">
-            <p><strong>Responses:</strong> {{register.responses.length}}</p>
+            <p><strong>Responses:</strong> {{register.responses}}</p>
         </div>
     </div>
 </div>

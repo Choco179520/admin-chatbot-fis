@@ -7,7 +7,7 @@ import { GestionExpresionesComponent } from "./components/gestion-expresiones/ge
 import { GestionRespuestasComponent } from "./components/gestion-respuestas/gestion-respuestas.component";
 import { GestionDocumentosComponent } from "./components/gestion-documentos/gestion-documentos.component";
 
-const path = "./menu/configuracion/gestion-nivel-1";
+const path = "./menu/configuracion/gestion-documentos";
 
 const routes: Routes = [
   {
@@ -27,6 +27,43 @@ const routes: Routes = [
     },
     component: GestionDocumentosComponent,
   },
+  {
+    path: "gestion-documentos/:id/:title/respuestas",
+    data: {
+      path,
+      breadcrumb: [
+        {
+          label: "Gestión Documentos",
+          link: path,
+          tabindex: 0,
+        },
+        {
+          label: "Gestión Respuestas",
+          disabled: true,
+        },
+      ],
+    },
+    component: GestionRespuestasComponent,
+  },
+  {
+    path: "gestion-documentos/:id/:title/expresiones",
+    data: {
+      path,
+      breadcrumb: [
+        {
+          label: "Gestión Documentos",
+          link: path,
+          tabindex: 0,
+        },
+        {
+          label: "Gestión Expresiones",
+          disabled: true,
+        },
+      ],
+    },
+    component: GestionExpresionesComponent,
+  },
+
   // {
   //   path: "gestion-nivel-1",
   //   data: {

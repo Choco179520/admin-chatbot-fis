@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <h4>GESTION EXPRESIONES {{nivel3 | tituloPipe}}</h4>
+        <h4>GESTION EXPRESIONES {{titulo | uppercase}}</h4>
 
         <div class="col-12 mb-3">
             <p-breadcrumb class="max-w-full" (onItemClick)="onItemClick($event)" [model]="items"></p-breadcrumb>
@@ -41,22 +41,13 @@
                 <tr>
                     <td *ngFor="let col of columns" pEditableColumn style="text-align:center">
                         <div *ngIf="col.field==='identificador'" style="font-size: 14px">
-                            {{ri}}
+                            {{ri + 1}}
                         </div>
 
                         <div *ngIf="col.field==='expression'" style="font-size: 14px">
-                            {{rowData?.expression ? rowData?.expression : 'No tiene'}}
+                            {{rowData ? rowData : 'No tiene'}}
                         </div>
 
-                        <div *ngIf="col.field==='nombre'" style="font-size: 14px">
-                            <h6> {{rowData?.nombre ? rowData?.nombre : 'No tiene'}} </h6>
-                            <p> {{rowData?.email ? rowData?.email : 'No tiene'}} </p>
-                        </div>
-
-                        <div *ngIf="col.field==='type'" style="font-size: 14px">
-                            <p>{{rowData?.type ? rowData?.type : 'No tiene'}}</p>
-                        </div>
-                        
                         <div *ngIf="col.field==='acciones'" style="font-size: 14px">
                             <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
                                 <img src="assets/icons/delete.svg" alt="Icono">

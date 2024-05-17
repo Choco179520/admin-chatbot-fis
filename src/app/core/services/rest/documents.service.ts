@@ -7,13 +7,26 @@ import { Observable, catchError, map, of, tap } from "rxjs";
   providedIn: "root",
 })
 export class DocumentService {
-  segmento = "chatbot/documents";
+  segmento = "chatbot";
   url = `${environment.host}/${environment.pathApi}/${this.segmento}`;
 
   constructor(private readonly http: HttpClient) {}
 
   getDocuments() {
-    const uriPeticion = `${this.url}`;    
+    const path = `documents`;
+    const uriPeticion = `${this.url}/${path}`;    
+    return this.http.get<any>(uriPeticion);
+  }
+
+  getUtterancesById(id: number) {
+    const path = `utterences/${id}`;
+    const uriPeticion = `${this.url}/${path}`;    
+    return this.http.get<any>(uriPeticion);
+  }
+
+  getResponsesById(id: number) {
+    const path = `responses/${id}`;
+    const uriPeticion = `${this.url}/${path}`;    
     return this.http.get<any>(uriPeticion);
   }
 }

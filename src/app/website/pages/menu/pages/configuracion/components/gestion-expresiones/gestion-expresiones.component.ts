@@ -15,6 +15,7 @@ import {
   TAMANIO_MODAL_MOVIL,
 } from "src/app/core/constants/valores.constantes";
 import { MenuItem } from "primeng/api";
+import { DocumentService } from "src/app/core/services/rest/documents.service";
 
 @Component({
   selector: "app-gestion-expresiones",
@@ -34,8 +35,7 @@ export class GestionExpresionesComponent {
   pathSiguiente!: string;
 
   titulo!: string;
-  subtitulo!: string;
-  nivel3!: string;
+  id!: number;
 
   columnas = COLUMNA_EXPRESIONES;
 
@@ -45,14 +45,15 @@ export class GestionExpresionesComponent {
     private readonly _modalGeneralService: ModalGeneralService,
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _documentService: DocumentService
   ) {}
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params: any) => {
-      this.titulo = params.id;
-      this.subtitulo = params.subId;
-      this.nivel3 = params.nivel3;
+      console.log(params, 'params...');
+      this.titulo = params.title;
+      this.id = params.id;
     });
 
     this._activatedRoute.data.subscribe((data: any) => {
@@ -62,31 +63,7 @@ export class GestionExpresionesComponent {
 
     this.formInicializar();
     this.escucharCampoBusqueda();
-
-    this.registros = [
-      {
-        expression: "Procedimiento para una Matrícula Ordinaria",
-        responses: 3,
-        utterances: 4,
-      },
-      {
-        expression: "¿Cuál es el procedimiento de matrícula?",
-        responses: 3,
-        utterances: 4,
-      },
-      {
-        expression: "¿Cómo puedo matricularme?",
-        responses: 3,
-        utterances: 4,
-      },
-      {
-        expression: "¿Qué pasos debo seguir para matricularme?",
-        responses: 3,
-        utterances: 4,
-      },
-    ];
-
-    this.documentos = this.registros;
+    this.getUtterances();
   }
 
   formInicializar() {
@@ -100,7 +77,7 @@ export class GestionExpresionesComponent {
     const busquedaC = this.campoBusqueda;
     busquedaC.valueChanges.subscribe((bus) => {
       this.registros = this.documentos.filter((entidad: any) =>
-        entidad.expression.toLowerCase().includes(bus.toLowerCase())
+        entidad.toLowerCase().includes(bus.toLowerCase())
       );
     });
   }
@@ -129,16 +106,45 @@ export class GestionExpresionesComponent {
 
   delete(rowData: any, ri: number) {}
 
-  edit(rowData: any, ri: number) {}
+  edit(rowData: any, ri: number) {
+    let widthModal = TAMANIO_MODAL;
+    if (window.outerWidth < 500) {
+      widthModal = TAMANIO_MODAL_MOVIL;
+    }
 
-  onItemClick(event: { originalEvent: Event, item: MenuItem | any }) {    
+    const dialogRef = this._dialog.open(AgregarEditarExpresionesComponent, {
+      width: widthModal,
+      disableClose: true,
+      data: rowData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result, "result.....");
+      }
+    });
+  }
+
+  onItemClick(event: { originalEvent: Event; item: MenuItem | any }) {
     let path = event.item.link;
     if (event.item.tabindex == 1) {
-      path = `${path}/${this.titulo}/gestion-nivel-2`
-    }    
+      path = `${path}/${this.titulo}/gestion-nivel-2`;
+    }
     if (event.item.tabindex == 2) {
-      path = `${path}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3`;
-    }        
+      // path = `${path}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3`;
+    }
     this._router.navigate([path]).then();
+  }
+
+  getUtterances() {
+    this._documentService.getUtterancesById(this.id)
+    .subscribe({
+      next: (resp) => {
+        this.registros = resp;
+        console.log(this.registros);
+        this.documentos = this.registros;
+      },
+      error: (err) => {},
+    })
   }
 }

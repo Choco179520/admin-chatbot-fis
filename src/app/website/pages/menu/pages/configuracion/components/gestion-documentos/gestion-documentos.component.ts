@@ -10,6 +10,11 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 import { DocumentService } from "src/app/core/services/rest/documents.service";
+import { AgregarEditarDocumentosComponent } from "../../modals/agregar-editar-documentos/agregar-editar-documentos.component";
+import {
+  TAMANIO_MODAL,
+  TAMANIO_MODAL_MOVIL,
+} from "src/app/core/constants/valores.constantes";
 
 @Component({
   selector: "app-gestion-documentos",
@@ -50,6 +55,9 @@ export class GestionDocumentosComponent {
     this._activatedRoute.data.subscribe((data: any) => {
       this.items = data.breadcrumb;
       this.pathSiguiente = data.path;
+
+      console.log(this.items, "items");
+      console.log(this.pathSiguiente, "pathSiguiente");
     });
 
     this.formInicializar();
@@ -96,19 +104,54 @@ export class GestionDocumentosComponent {
     }
   }
 
-  newDocument() {}
+  newDocument() {
+    let widthModal = TAMANIO_MODAL;
+    if (window.outerWidth < 500) {
+      widthModal = TAMANIO_MODAL_MOVIL;
+    }
 
-  editDocument(register: any) {}
+    const dialogRef = this._dialog.open(AgregarEditarDocumentosComponent, {
+      width: widthModal,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result, "result.....");
+      }
+    });
+  }
+
+  editDocument(register: any) {
+    let widthModal = TAMANIO_MODAL;
+    if (window.outerWidth < 500) {
+      widthModal = TAMANIO_MODAL_MOVIL;
+    }
+
+    const dialogRef = this._dialog.open(AgregarEditarDocumentosComponent, {
+      width: widthModal,
+      disableClose: true,
+      data: register
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result, "result.....");
+      }
+    });
+  }
 
   deleteDocument(register: any) {}
 
   navigatedUtterences(register: any) {
-    let path = `${this.pathSiguiente}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3/${register.id}/expresiones`;
+    let path = `${this.pathSiguiente}/${register.id}/${register.title}/expresiones`;
+    console.log(path, "navegacion ....");
     this._router.navigate([path]).then();
   }
 
   navigatedResponses(register: any) {
-    let path = `${this.pathSiguiente}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3/${register.id}/respuestas`;
+    let path = `${this.pathSiguiente}/${register.id}/${register.title}/respuestas`;
+    console.log(path, "navegacion ....");
     this._router.navigate([path]).then();
   }
 
@@ -121,8 +164,7 @@ export class GestionDocumentosComponent {
   }
 
   getDocuments() {
-    this._documentService.getDocuments()
-    .subscribe({
+    this._documentService.getDocuments().subscribe({
       next: (resp) => {
         // this.registros = [
         //   {
@@ -146,12 +188,12 @@ export class GestionDocumentosComponent {
         //     utterances: 4,
         //   },
         // ];
-    
+
         this.registros = resp;
         console.log(this.registros);
         this.documentos = this.registros;
       },
       error: (err) => {},
-    })
+    });
   }
 }

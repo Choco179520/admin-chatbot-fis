@@ -24,34 +24,33 @@ export class AgregarEditarRespuestasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data, "data......");
     this.formInicializar();
   }
 
-  formInicializar() {
+  formInicializar() {    
     this.formResponse = this._formBuilder.group({
       type: new FormControl(
-        this.data?.data?.email ?? "text",
+        this.data?.type ?? "text",
         Validators.compose([Validators.required])
       ),
       content: new FormControl(
-        this.data?.data?.nombre ?? "",
+        this.data?.content ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
       action: new FormControl(
-        this.data?.data?.nombre ?? "",
+        this.data?.action ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
       path: new FormControl(
-        this.data?.data?.telefono ?? "",
+        this.data?.path ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
       name: new FormControl(
-        this.data?.data?.rol ?? "",
+        this.data?.name ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
       alt: new FormControl(
-        this.data?.data?.rol ?? "",
+        this.data?.alt ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
     });

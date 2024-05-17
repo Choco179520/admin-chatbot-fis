@@ -25,13 +25,13 @@ export class AgregarEditarExpresionesComponent implements OnInit{
   formInicializar() {
     this.formExpression = this._formBuilder.group({
       expression: new FormControl(
-        this.data?.data?.email ?? "",
+        this.data ?? "",
         Validators.compose([Validators.required])
       ),
     });
   }
 
-  acept() {
+  acept() {    
     if (this.formExpression.valid) {
       this.dialogRef.close(this.formExpression.value);
     }

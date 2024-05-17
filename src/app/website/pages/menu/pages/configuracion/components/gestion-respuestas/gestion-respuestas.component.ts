@@ -15,6 +15,7 @@ import {
 import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 import { AgregarEditarRespuestasComponent } from "../../modals/agregar-editar-respuestas/agregar-editar-respuestas.component";
 import { MenuItem } from "primeng/api";
+import { DocumentService } from "src/app/core/services/rest/documents.service";
 
 @Component({
   selector: "app-gestion-respuestas",
@@ -34,8 +35,7 @@ export class GestionRespuestasComponent {
   pathSiguiente!: string;
 
   titulo!: string;
-  subtitulo!: string;
-  nivel3!: string;
+  id!: number;
 
   columnas = COLUMNA_RESPUESTAS;
 
@@ -45,14 +45,14 @@ export class GestionRespuestasComponent {
     private readonly _modalGeneralService: ModalGeneralService,
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _documentService: DocumentService
   ) {}
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params: any) => {
-      this.titulo = params.id;
-      this.subtitulo = params.subId;
-      this.nivel3 = params.nivel3;
+      this.titulo = params.title;
+      this.id = params.id;
     });
 
     this._activatedRoute.data.subscribe((data: any) => {
@@ -63,27 +63,7 @@ export class GestionRespuestasComponent {
     this.formInicializar();
     this.escucharCampoBusqueda();
 
-    this.registros = [
-      {
-        response:
-          "content: Si necesitas conocer más detalles sobre algún tipo de matrícula puedes hacerlo mediante los siguientes mensajes:",
-        type: "text",
-      },
-      {
-        response: "¿Cuál es el procedimiento de matrícula?",
-        type: "action",
-      },
-      {
-        response: "proceso-matricula-ordinaria",
-        type: "action",
-      },
-      {
-        response: "matricula-ordinaria",
-        type: "action",
-      },
-    ];
-
-    this.documentos = this.registros;
+    this.getResponses();
   }
 
   formInicializar() {
@@ -96,9 +76,17 @@ export class GestionRespuestasComponent {
   escucharCampoBusqueda(): void {
     const busquedaC = this.campoBusqueda;
     busquedaC.valueChanges.subscribe((bus) => {
-      this.registros = this.documentos.filter((entidad: any) =>
-        entidad.response.toLowerCase().includes(bus.toLowerCase())
-      );
+      this.registros = this.documentos.filter((entidad: any) => {
+        const nameExists = entidad.name && typeof entidad.name === "string";
+        const contentExists =
+          entidad.content && typeof entidad.content === "string";
+        const nameMatches =
+          nameExists && entidad.name.toLowerCase().includes(bus.toLowerCase());
+        const contentMatches =
+          contentExists &&
+          entidad.content.toLowerCase().includes(bus.toLowerCase());
+        return nameMatches || contentMatches;
+      });
     });
   }
 
@@ -126,16 +114,44 @@ export class GestionRespuestasComponent {
 
   delete(rowData: any, ri: number) {}
 
-  edit(rowData: any, ri: number) {}
+  edit(rowData: any, ri: number) {
+    let widthModal = TAMANIO_MODAL;
+    if (window.outerWidth < 500) {
+      widthModal = TAMANIO_MODAL_MOVIL;
+    }
+
+    const dialogRef = this._dialog.open(AgregarEditarRespuestasComponent, {
+      width: widthModal,
+      disableClose: true,
+      data: { ...rowData },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result, "result.....");
+      }
+    });
+  }
 
   onItemClick(event: { originalEvent: Event; item: MenuItem | any }) {
     let path = event.item.link;
-    if ((event.item.tabindex == 1)) {
+    if (event.item.tabindex == 1) {
       path = `${path}/${this.titulo}/gestion-nivel-2`;
     }
-    if ((event.item.tabindex == 2)) {
-      path = `${path}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3`
+    if (event.item.tabindex == 2) {
+      // path = `${path}/${this.titulo}/gestion-nivel-2/${this.subtitulo}/gestion-nivel-3`
     }
     this._router.navigate([path]).then();
+  }
+
+  getResponses() {
+    this._documentService.getResponsesById(this.id).subscribe({
+      next: (resp) => {
+        this.registros = resp;
+        console.log(this.registros);
+        this.documentos = this.registros;
+      },
+      error: (err) => {},
+    });
   }
 }

@@ -1,56 +1,131 @@
 @import "src/styles";
 
+// .container-bloqueo {
+//     border-radius: 12px;
+//     background: #D9D9D9;
+//     padding: 1rem;
+//     display: grid;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: 2fr 1fr 0.5fr;
+//     grid-auto-columns: 1fr;
+//     gap: 0px 0px;
+//     grid-auto-flow: row;
+//     grid-template-areas:
+//         "texto"
+//         "opciones"
+//         "botones";
+
+//     .texto {
+//         grid-area: texto;
+//     }
+
+//     .opciones, .botones {
+//         display: grid;
+//         grid-template-columns: 1fr 1fr;
+//         grid-template-rows: 1fr;
+//         gap: 0px 10px;
+//         grid-auto-flow: row;
+//         grid-template-areas:
+//             "utterences responses";
+//         grid-area: botones;
+
+//         .utterences {
+//             justify-self: center;
+//             align-self: center;
+//             grid-area: utterences;
+
+//             p {
+//                 border-radius: 20px;
+//                 background: #FFFFFF;
+//                 padding-block: 0.5rem;
+//                 padding-inline: 1.5rem;
+//                 text-align: center;
+//                 font-size: 11px;
+//             }
+//         }
+
+//         .responses {
+//             justify-self: center;
+//             align-self: center;
+//             grid-area: responses;
+
+//             p {
+//                 border-radius: 20px;
+//                 background: #FFFFFF;
+//                 padding-block: 0.5rem;
+//                 padding-inline: 1.5rem;
+//                 text-align: center;
+//                 font-size: 11px;
+//             }
+//         }
+//     }
+// }
+
+
 .container-bloqueo {
     border-radius: 12px;
     background: #D9D9D9;
     padding: 1rem;
     display: grid;
-    grid-template-columns: 6fr 4fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 4.5fr;
+    grid-template-rows: 1fr 0.5fr 0.5fr;
     grid-auto-columns: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        "name delete"
-        "count edit"
-        "botones botones";
+        "texto"
+        "botones"
+        "opciones";
 
-    .delete {
-        justify-self: end;
-        align-self: end;
-        grid-area: delete;
-    }
 
-    .edit {
-        justify-self: end;
-        align-self: start;
-        grid-area: edit;
-    }
+    .texto {
+        grid-area: texto;
 
-    .name {
-        align-self: end;
-        grid-area: name;
-    }
+        p {
+            margin-bottom: 0.1rem;
+            text-align: center;
+        }
 
-    .count {
-        align-self: start;
-        grid-area: count;
+        h6 {
+            text-align: center;
+        }
     }
 
     .botones {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+            "editar eliminar";
+        align-self: center;
+        grid-area: botones;
+
+        .editar {
+            grid-area: editar;
+            justify-self: center; 
+        }
+
+        .eliminar {
+            grid-area: eliminar;
+            justify-self: center; 
+        }
+    }
+
+    .opciones {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
         gap: 0px 10px;
         grid-auto-flow: row;
         grid-template-areas:
-            "utterences responses";
-        grid-area: botones;
+            "utterances responses";
+        align-self: center;
+        grid-area: opciones;
 
-        .utterences {
-            justify-self: center;
-            align-self: center;
-            grid-area: utterences;
+        .utterances {
+            grid-area: utterances;
 
             p {
                 border-radius: 20px;
@@ -63,8 +138,6 @@
         }
 
         .responses {
-            justify-self: center;
-            align-self: center;
             grid-area: responses;
 
             p {
