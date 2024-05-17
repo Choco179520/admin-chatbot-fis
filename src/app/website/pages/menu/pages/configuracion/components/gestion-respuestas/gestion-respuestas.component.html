@@ -2,6 +2,15 @@
     <div class="row">
         <h4>GESTIÓN RESPUESTAS {{titulo | tituloPipe}}</h4>
 
+
+        <div class="row container-opciones-bloqueo">
+            <div *ngFor="let item of itemsBall" class="item-container">
+                <span class="color-ball" [ngStyle]="{'background-color': item.color}"></span>
+                <span class="item-text">{{ item.text }}</span>
+            </div>
+        </div>
+
+
         <div class="col-12 mb-3">
             <p-breadcrumb class="max-w-full" (onItemClick)="onItemClick($event)" [model]="items"></p-breadcrumb>
         </div>
@@ -45,7 +54,8 @@
                         </div>
 
                         <div *ngIf="col.field==='response'" style="font-size: 14px">
-                            <p> {{rowData?.response?.content ? rowData?.response?.content : rowData?.response?.name}} </p>
+                            <p> {{rowData?.response?.content ? rowData?.response?.content : rowData?.response?.name}}
+                            </p>
                         </div>
 
                         <div *ngIf="col.field==='type'" style="font-size: 14px">
@@ -55,7 +65,7 @@
                         <div *ngIf="col.field==='acciones'" style="font-size: 14px">
                             <button class="btn boton-4 mx-3 mb-2" (click)="edit(rowData, ri)">
                                 <img src="assets/icons/edit.svg" alt="Icono">
-                            </button> 
+                            </button>
 
                             <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
                                 <img src="assets/icons/delete.svg" alt="Icono">

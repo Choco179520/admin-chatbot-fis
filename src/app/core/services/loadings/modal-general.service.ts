@@ -10,6 +10,27 @@ import { COLOR_PRIMARIO } from "../../constants/colores-constantes";
 export class ModalGeneralService {
   constructor(private readonly _router: Router) {}
 
+  async mensajeModalConsulta(datosModal: ModalInterface): Promise<boolean> {
+    const respuestaModal = await Swal.fire({
+      title: datosModal?.titulo ? datosModal?.titulo : "",
+      text: datosModal.mensaje,
+      icon: datosModal.icono,
+      showCancelButton: true,
+      confirmButtonColor: '#063E57',
+      cancelButtonColor: '#D9D9D9',
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+      iconColor: '',
+      allowOutsideClick: false,
+      width: datosModal.width ? datosModal.width : 1000,
+      // customClass: {
+      //   confirmButton: "swalBtnColor",
+      //   cancelButton: 'swalBtnColorCancel'
+      // },
+    });
+    return respuestaModal.isConfirmed;
+  }
+
   async mensajeImagen(jsonInformacion: any) {
     return await Swal.fire({
       title: `<h3>jsonInformacion.titulo</h3>`,

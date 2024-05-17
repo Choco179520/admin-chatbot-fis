@@ -1,4 +1,4 @@
-<div class="container-bloqueo">
+<div class="container-bloqueo" [ngClass]="{ 'modified-class': !register.estado, 'delete-class': register.eliminar }">
     <div class="texto">
         <!-- <p><strong>id:</strong> {{register.id}}</p> -->
         <h6><strong>Título:</strong> {{register.title}}</h6>
@@ -16,11 +16,11 @@
         </div>
     </div>
     <div class="opciones">
-        <div class="utterances" (click)="selectOpcion('utterences')">
-            <p><strong>Utterances:</strong> {{register.utterances}}</p>
+        <div class="utterances">
+            <p (click)="selectOpcion('utterences')"><strong>Utterances:</strong> {{register.utterances}}</p>
         </div>
-        <div class="responses" (click)="selectOpcion('responses')">
-            <p><strong>Responses:</strong> {{register.responses}}</p>
+        <div class="responses">
+            <p (click)="selectOpcion('responses')"><strong>Responses:</strong> {{register.responses}}</p>
         </div>
     </div>
 </div>

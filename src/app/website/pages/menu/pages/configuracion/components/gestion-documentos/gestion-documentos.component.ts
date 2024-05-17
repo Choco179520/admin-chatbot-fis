@@ -15,6 +15,7 @@ import {
   TAMANIO_MODAL,
   TAMANIO_MODAL_MOVIL,
 } from "src/app/core/constants/valores.constantes";
+import { ModalInterface } from "src/app/core/interfaces/modal.interface";
 
 @Component({
   selector: "app-gestion-documentos",
@@ -25,6 +26,12 @@ export class GestionDocumentosComponent {
   formularioBusqueda!: FormGroup | any;
 
   items!: MenuItem[];
+
+  itemsBall = [
+    { color: '#D9D9D9', text: 'Registro sin modificación' },
+    { color: '#6ad3fd', text: 'Registro modificado' },
+    { color: '#ff432c', text: 'Registro eliminado' }
+  ];
 
   registros: any = [];
   documentos: any = [];
@@ -55,9 +62,6 @@ export class GestionDocumentosComponent {
     this._activatedRoute.data.subscribe((data: any) => {
       this.items = data.breadcrumb;
       this.pathSiguiente = data.path;
-
-      console.log(this.items, "items");
-      console.log(this.pathSiguiente, "pathSiguiente");
     });
 
     this.formInicializar();
@@ -119,11 +123,13 @@ export class GestionDocumentosComponent {
       if (result) {
         const json = {
           ...result,
-          estado: 1,
+          estado: 0,
           eliminar: 0
         };
         this._documentService.postDocuments(json).subscribe({
           next: (resp) => {
+            resp.utterances = 1;
+            resp.responses = 1;
             this.registros.unshift(resp);
             this.documentos = this.registros;
             this.loading = false;
@@ -163,9 +169,11 @@ export class GestionDocumentosComponent {
         const json = {
           ...result,
           estado: 0,
-        };
+          eliminar: register.eliminar
+        };        
+
         this._documentService.putDocuments(register.id, json).subscribe({
-          next: (resp) => {
+          next: (resp) => {            
             this.registros[indice].title = resp.title;
             this.registros[indice].estado = resp.estado;
             this.registros[indice].fechaActualizacion = resp.fechaActualizacion;
@@ -189,8 +197,30 @@ export class GestionDocumentosComponent {
     });
   }
 
-  deleteDocument(register: any, indice: number) {
-
+  async deleteDocument(register: any, indice: number) {
+    const infoModal: ModalInterface = {
+      titulo: '¿Estás seguro que deseas eliminar el documento?',
+      icono: 'question',
+    }
+    const modal = await this._modalGeneralService.mensajeModalConsulta(infoModal);
+    if (modal) {
+      const jsonUpdate = {
+        eliminar: Number(!register.eliminar),
+      }      
+      this._documentService.putDocuments(register.id, jsonUpdate)
+      .subscribe({
+        next: (resp) => {
+          console.log(resp, 'respuesta update'); 
+          this.registros[indice].eliminar = resp.eliminar;
+          this.documentos = this.registros;
+        },
+        error: (err) => {
+          console.error(err);
+          
+        }
+      })
+    }
+    
   }
 
   navigatedUtterences(register: any) {

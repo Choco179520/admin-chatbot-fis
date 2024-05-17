@@ -2,6 +2,14 @@
     <div class="row">
         <h4>GESTIÓN DE DOCUMENTOS</h4>
 
+
+        <div class="row container-opciones-bloqueo">
+            <div *ngFor="let item of itemsBall" class="item-container">
+                <span class="color-ball" [ngStyle]="{'background-color': item.color}"></span>
+                <span class="item-text">{{ item.text }}</span>
+            </div>
+        </div>
+
         <div class="col-12 mb-3">
             <p-breadcrumb class="max-w-full" [model]="items" (onItemClick)="onItemClick($event)"></p-breadcrumb>
         </div>
@@ -32,6 +40,7 @@
     </div>
 
     <div class="row" *ngIf="registros.length == 0">
-        <h3 style="text-align: center; font-weight: 600;">NO EXISTEN REGISTROS, FILTRAR PARA VER LOS REGISTROS ANTERIORES.</h3>
+        <h3 style="text-align: center; font-weight: 600;">NO EXISTEN REGISTROS, FILTRAR PARA VER LOS REGISTROS
+            ANTERIORES.</h3>
     </div>
 </div>

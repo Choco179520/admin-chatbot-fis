@@ -6,7 +6,6 @@ import { GestionNivelDosComponent } from './components/gestion-nivel-dos/gestion
 import { GestionNivelTresComponent } from './components/gestion-nivel-tres/gestion-nivel-tres.component';
 import { GestionExpresionesComponent } from './components/gestion-expresiones/gestion-expresiones.component';
 import { GestionRespuestasComponent } from './components/gestion-respuestas/gestion-respuestas.component';
-import { AgregarEditarNivelesComponent } from './modals/agregar-editar-niveles/agregar-editar-niveles.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AgregarEditarExpresionesComponent } from './modals/agregar-editar-expresiones/agregar-editar-expresiones.component';
 import { AgregarEditarRespuestasComponent } from './modals/agregar-editar-respuestas/agregar-editar-respuestas.component';
@@ -20,7 +19,6 @@ import { AgregarEditarDocumentosComponent } from './modals/agregar-editar-docume
     GestionNivelTresComponent,
     GestionExpresionesComponent,
     GestionRespuestasComponent,
-    AgregarEditarNivelesComponent,
     AgregarEditarExpresionesComponent,
     AgregarEditarRespuestasComponent,
     GestionDocumentosComponent,

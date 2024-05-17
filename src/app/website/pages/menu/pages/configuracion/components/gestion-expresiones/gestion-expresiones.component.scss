@@ -4,8 +4,53 @@ h4 {
     text-align: center;
 }
 
-.p-datatable .p-datatable-thead > tr > th {
-    border: 1px solid #dee2e6;
-    color: #ffffff;
-    background: #073e57;
+.container-opciones-bloqueo {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.color-ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.item-text {
+    font-size: 16px;
+}
+
+@media (max-width: 580px) {
+    .container-opciones-bloqueo {
+        margin-bottom: 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-auto-columns: 1fr;
+        gap: 0px 0px;
+        grid-auto-flow: column;
+        justify-items: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .item-container {
+        flex-direction: row;
+        text-align: center;
+        justify-items: center;
+    }
 }

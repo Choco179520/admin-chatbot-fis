@@ -7,6 +7,13 @@
         </div>
     </div>
 
+    <div class="row container-opciones-bloqueo">
+        <div *ngFor="let item of itemsBall" class="item-container">
+            <span class="color-ball" [ngStyle]="{'background-color': item.color}"></span>
+            <span class="item-text">{{ item.text }}</span>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-8 col-sm-6 col-12 col-sm-12 mb-4">
             <form [formGroup]="formularioBusqueda">

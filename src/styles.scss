@@ -360,3 +360,32 @@ $border-radius-botones: 10px;
 .search-container button:hover {
   background-color: $color-1;
 }
+
+/** Modificacion de items */
+.delete-class {
+  background: #ff432c;
+
+  .texto {
+    p {
+      color: #fff;
+    }
+
+    h6 {
+      color: #fff;
+    }
+  }
+}
+
+.modified-class {
+  background: #6ad3fd;
+
+  .texto {
+    p {
+      color: #0000;
+    }
+
+    h6 {
+      color: #000;
+    }
+  }
+}

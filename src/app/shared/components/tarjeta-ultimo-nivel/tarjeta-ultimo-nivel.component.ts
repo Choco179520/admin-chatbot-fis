@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 
 @Component({
   selector: "app-tarjeta-ultimo-nivel",
@@ -14,9 +15,15 @@ export class TarjetaUltimoNivelComponent {
     indice: number
   }>();
 
-  constructor() {}
+  constructor(
+    private readonly _modalGeneralService: ModalGeneralService
+  ) {}
 
-  selectOpcion(option: string) {
-    this.opcionSelected.emit({ register: this.register, opcion: option, indice: this.indice });
+  selectOpcion(option: string) {    
+    if (!this.register.eliminar || option == 'delete') {
+      this.opcionSelected.emit({ register: this.register, opcion: option, indice: this.indice });
+    } else {
+      this._modalGeneralService.toasterMensaje('info', 'Para poder acceder debes quitar la opción de eliminación.')
+    }
   }
 }

@@ -4,11 +4,9 @@ import {
   FormBuilder,
   FormControl,
   Validators,
+  AbstractControl,
 } from "@angular/forms";
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-agregar-editar-documentos",
@@ -25,8 +23,6 @@ export class AgregarEditarDocumentosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
-    
     this.formInicializar();
   }
 
@@ -36,7 +32,39 @@ export class AgregarEditarDocumentosComponent implements OnInit {
         this.data?.title ?? '',
         Validators.compose([Validators.required])
       ),
+      expression: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.required])
+      ),
+      type: new FormControl(
+        { value: 'text', disabled: this.data ? true : false },
+        Validators.compose([Validators.required])
+      ),
+      content: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.minLength(10)])
+      ),
+      action: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.minLength(10)])
+      ),
+      path: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.minLength(10)])
+      ),
+      name: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.minLength(10)])
+      ),
+      alt: new FormControl(
+        { value: '', disabled: this.data ? true : false },
+        Validators.compose([Validators.minLength(10)])
+      ),
     });
+  }
+
+  get campoType(): AbstractControl {
+    return this.formDocument.get('type') as FormControl;
   }
 
   acept() {

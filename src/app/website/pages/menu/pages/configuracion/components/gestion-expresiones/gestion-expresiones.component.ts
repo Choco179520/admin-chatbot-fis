@@ -27,6 +27,12 @@ export class GestionExpresionesComponent {
 
   items!: MenuItem[];
 
+  itemsBall = [
+    { color: '#D9D9D9', text: 'Registro sin modificación' },
+    { color: '#6ad3fd', text: 'Registro modificado' },
+    { color: '#ff432c', text: 'Registro eliminado' }
+  ];
+
   registros: any = [];
   documentos: any = [];
   totalRecords!: number;
