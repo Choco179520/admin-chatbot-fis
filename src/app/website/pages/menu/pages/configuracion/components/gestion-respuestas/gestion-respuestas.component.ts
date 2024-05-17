@@ -151,13 +151,17 @@ export class GestionRespuestasComponent {
   }
 
   getResponses() {
+    this.loading = true;
     this._documentService.getResponsesById(this.id).subscribe({
       next: (resp) => {
         this.registros = resp;
         console.log(this.registros);
         this.documentos = this.registros;
+        this.loading = false;
       },
-      error: (err) => {},
+      error: (err) => {
+        this.loading = false;
+      },
     });
   }
 }

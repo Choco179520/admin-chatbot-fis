@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  host: 'https://192.168.100.12:3001', // casa
+  // host: 'https://192.168.100.12:3001', // casa
+  host: 'https://localhost:3001', // casa
   // host: 'https://172.29.80.63:3000', // universidad
   pathApi: 'api-backoffice-chatbot',
   // permisosAzure: ['user.read','openid', 'profile'],

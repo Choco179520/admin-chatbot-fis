@@ -86,8 +86,8 @@ export class GestionDocumentosComponent {
     return this.formularioBusqueda.get("search") as FormControl;
   }
 
-  opcionSelected(event: { register: any; opcion: string }) {
-    let { register, opcion } = event;
+  opcionSelected(event: { register: any; opcion: string; indice: number }) {
+    let { register, opcion, indice } = event;
     switch (opcion) {
       case "utterences":
         this.navigatedUtterences(register);
@@ -96,10 +96,10 @@ export class GestionDocumentosComponent {
         this.navigatedResponses(register);
         break;
       case "edit":
-        this.editDocument(register);
+        this.editDocument(register, indice);
         break;
       default:
-        this.deleteDocument(register);
+        this.deleteDocument(register, indice);
         break;
     }
   }
@@ -117,12 +117,35 @@ export class GestionDocumentosComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result, "result.....");
+        const json = {
+          ...result,
+          estado: 1,
+          eliminar: 0
+        };
+        this._documentService.postDocuments(json).subscribe({
+          next: (resp) => {
+            this.registros.unshift(resp);
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              'success',
+              'Se creó exitosamente el registro.'
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              'error',
+              'Error al crear el registro, intentelo nuevamente'
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }
 
-  editDocument(register: any) {
+  editDocument(register: any, indice: number) {
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
       widthModal = TAMANIO_MODAL_MOVIL;
@@ -131,17 +154,44 @@ export class GestionDocumentosComponent {
     const dialogRef = this._dialog.open(AgregarEditarDocumentosComponent, {
       width: widthModal,
       disableClose: true,
-      data: register
+      data: register,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      this.loading = true;
       if (result) {
-        console.log(result, "result.....");
+        const json = {
+          ...result,
+          estado: 0,
+        };
+        this._documentService.putDocuments(register.id, json).subscribe({
+          next: (resp) => {
+            this.registros[indice].title = resp.title;
+            this.registros[indice].estado = resp.estado;
+            this.registros[indice].fechaActualizacion = resp.fechaActualizacion;
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              'success',
+              'Se actualizo exitosamente'
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              'error',
+              'Error al actualizar la información, intentelo nuevamente'
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }
 
-  deleteDocument(register: any) {}
+  deleteDocument(register: any, indice: number) {
+
+  }
 
   navigatedUtterences(register: any) {
     let path = `${this.pathSiguiente}/${register.id}/${register.title}/expresiones`;

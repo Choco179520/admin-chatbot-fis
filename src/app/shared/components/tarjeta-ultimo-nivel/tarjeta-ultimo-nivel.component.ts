@@ -7,14 +7,16 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 })
 export class TarjetaUltimoNivelComponent {
   @Input() register!: any;
+  @Input() indice!: any;
   @Output() opcionSelected = new EventEmitter<{
     register: any;
     opcion: string;
+    indice: number
   }>();
 
   constructor() {}
 
   selectOpcion(option: string) {
-    this.opcionSelected.emit({ register: this.register, opcion: option });
+    this.opcionSelected.emit({ register: this.register, opcion: option, indice: this.indice });
   }
 }

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <h4>GESTION DE DOCUMENTOS</h4>
+        <h4>GESTIÓN DE DOCUMENTOS</h4>
 
         <div class="col-12 mb-3">
             <p-breadcrumb class="max-w-full" [model]="items" (onItemClick)="onItemClick($event)"></p-breadcrumb>
@@ -25,8 +25,8 @@
 
     <div class="row" *ngIf="registros.length > 0">
         <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 mb-4"
-            *ngFor="let register of registros">
-            <app-tarjeta-ultimo-nivel [register]="register"
+            *ngFor="let register of registros; let i = index">
+            <app-tarjeta-ultimo-nivel [register]="register" [indice]="i"
                 (opcionSelected)="opcionSelected($event)"></app-tarjeta-ultimo-nivel>
         </div>
     </div>
