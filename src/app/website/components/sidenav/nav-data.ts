@@ -13,7 +13,7 @@ export const navbarData: INavbarData[] = [
         ]
     },
     {
-        routeLink: './configuracion/gestion-nivel-1',
+        routeLink: './configuracion/gestion-documentos',
         icon: 'assets/icons/configuracion.svg',
         label: 'CONFIGURACIÓN',
         items: [

@@ -36,3 +36,5 @@ ng g component website/pages/menu/pages/administracion-usuarios/modals/agregar-e
 ng g component shared/components/tarjeta-ultimo-nivel
 
 ng g component  website/pages/menu/pages/configuracion/modals/agregar-editar-respuestas
+
+ng g component website/pages/menu/pages/configuracion/components/gestion-documentos

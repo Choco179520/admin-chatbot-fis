@@ -10,7 +10,6 @@ import { catchError, lastValueFrom, map, switchMap, throwError } from "rxjs";
   styleUrls: ["./formulario-inicio-sesion.component.scss"],
 })
 export class FormularioInicioSesionComponent implements OnInit {
-
   constructor(
     private readonly _msalService: MsalService,
     private readonly _router: Router
@@ -32,6 +31,8 @@ export class FormularioInicioSesionComponent implements OnInit {
         console.log(res, "respuesta......");
 
         try {
+          console.log("metidi JC");
+
           this.metodoJc();
         } catch (err) {
           // this._cargandoService.deshabilitarCargando();
@@ -45,8 +46,8 @@ export class FormularioInicioSesionComponent implements OnInit {
   metodoJc() {
     lastValueFrom(this._msalService.loginPopup())
       .then((res: any) => {
-        console.log(res, 'loginPopup response....');
-        
+        console.log(res, "loginPopup response....");
+
         const consultaDatos = {
           nombre: res.account.name,
           correo: res.account.username,

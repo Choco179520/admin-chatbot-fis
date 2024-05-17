@@ -4,7 +4,7 @@
         <p><strong>id:</strong> {{register.id}}</p>
     </div>
     <div class="count">
-        <p><strong>Título:</strong> {{register.id | tituloPipe}}</p>
+        <p><strong>Título:</strong> {{register.title}}</p>
     </div>
     <div class="delete">
         <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
@@ -18,10 +18,10 @@
     </div>
     <div class="botones">
         <div class="utterences" (click)="selectOpcion('utterences')">
-            <p><strong>Utterances:</strong> {{register.utterances}}</p>
+            <p><strong>Utterances:</strong> {{register.utterances.length}}</p>
         </div>
         <div class="responses" (click)="selectOpcion('responses')">
-            <p><strong>Responses:</strong> {{register.responses}}</p>
+            <p><strong>Responses:</strong> {{register.responses.length}}</p>
         </div>
     </div>
 </div>

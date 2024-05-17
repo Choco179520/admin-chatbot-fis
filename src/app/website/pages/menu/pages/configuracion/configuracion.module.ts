@@ -10,6 +10,7 @@ import { AgregarEditarNivelesComponent } from './modals/agregar-editar-niveles/a
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AgregarEditarExpresionesComponent } from './modals/agregar-editar-expresiones/agregar-editar-expresiones.component';
 import { AgregarEditarRespuestasComponent } from './modals/agregar-editar-respuestas/agregar-editar-respuestas.component';
+import { GestionDocumentosComponent } from './components/gestion-documentos/gestion-documentos.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AgregarEditarRespuestasComponent } from './modals/agregar-editar-respue
     GestionRespuestasComponent,
     AgregarEditarNivelesComponent,
     AgregarEditarExpresionesComponent,
-    AgregarEditarRespuestasComponent
+    AgregarEditarRespuestasComponent,
+    GestionDocumentosComponent
   ],
   imports: [
     CommonModule,

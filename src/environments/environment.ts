@@ -4,16 +4,16 @@
 
 export const environment = {
   production: false,
-  host: 'https://192.168.100.12:3000', // casa
+  host: 'https://192.168.100.12:3001', // casa
   // host: 'https://172.29.80.63:3000', // universidad
   pathApi: 'api-backoffice-chatbot',
   // permisosAzure: ['user.read','openid', 'profile'],
-  permisosAzure: ['user.read'],
+  permisosAzure: ['user.read','openid', 'profile'],
   urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
   clientId: 'f9460765-2e51-4f7a-97a0-a81164fb1aeb',
   tenantId: '682a4e6a-a77f-4958-a3ac-9e266d18aa37',
   urlMicrosoft: 'https://login.microsoftonline.com/',
-  redirectUri: 'https://172.29.80.63:4200/inicio-sesion',
+  redirectUri: 'http://localhost:4200/inicio-sesion',
   // 172.29.80.63
 };
 
