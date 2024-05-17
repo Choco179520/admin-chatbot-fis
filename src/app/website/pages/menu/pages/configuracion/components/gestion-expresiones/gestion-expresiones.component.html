@@ -45,17 +45,17 @@
                         </div>
 
                         <div *ngIf="col.field==='expression'" style="font-size: 14px">
-                            {{rowData ? rowData : 'No tiene'}}
+                            {{rowData?.utterance ? rowData?.utterance : 'No tiene'}}
                         </div>
 
                         <div *ngIf="col.field==='acciones'" style="font-size: 14px">
-                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
-                                <img src="assets/icons/delete.svg" alt="Icono">
-                            </button>
-
                             <button class="btn boton-4 mx-3 mb-2" (click)="edit(rowData, ri)">
                                 <img src="assets/icons/edit.svg" alt="Icono">
                             </button> 
+
+                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
+                                <img src="assets/icons/delete.svg" alt="Icono">
+                            </button>
                         </div>
 
                     </td>
@@ -65,7 +65,7 @@
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="13">
-                        NO EXISTEN REGISTROS DESCARGAR O FILTRAR PARA VER LOS REGISTROS ANTERIORES
+                        NO EXISTEN REGISTROS, FILTRAR PARA VER LOS REGISTROS ANTERIORES.
                     </td>
                 </tr>
             </ng-template>

@@ -19,7 +19,7 @@ export class DocumentService {
   }
 
   getUtterancesById(id: number) {
-    const path = `utterences/${id}`;
+    const path = `utterances/${id}`;
     const uriPeticion = `${this.url}/${path}`;    
     return this.http.get<any>(uriPeticion);
   }

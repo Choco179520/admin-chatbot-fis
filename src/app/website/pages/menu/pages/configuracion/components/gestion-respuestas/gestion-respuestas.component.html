@@ -44,22 +44,22 @@
                             {{ri + 1}}
                         </div>
 
-                        <div *ngIf="col.field==='name'" style="font-size: 14px">
-                            <p> {{rowData?.content ? rowData?.content : rowData?.name}} </p>
+                        <div *ngIf="col.field==='response'" style="font-size: 14px">
+                            <p> {{rowData?.response?.content ? rowData?.response?.content : rowData?.response?.name}} </p>
                         </div>
 
                         <div *ngIf="col.field==='type'" style="font-size: 14px">
-                            <p>{{rowData?.type ? rowData?.type : 'No tiene'}}</p>
+                            <p>{{rowData?.response?.type ? rowData?.response?.type : 'No tiene'}}</p>
                         </div>
 
                         <div *ngIf="col.field==='acciones'" style="font-size: 14px">
-                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
-                                <img src="assets/icons/delete.svg" alt="Icono">
-                            </button>
-
                             <button class="btn boton-4 mx-3 mb-2" (click)="edit(rowData, ri)">
                                 <img src="assets/icons/edit.svg" alt="Icono">
                             </button> 
+
+                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
+                                <img src="assets/icons/delete.svg" alt="Icono">
+                            </button>
                         </div>
 
                     </td>
@@ -69,7 +69,7 @@
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="13">
-                        NO EXISTEN REGISTROS DESCARGAR O FILTRAR PARA VER LOS REGISTROS ANTERIORES
+                        NO EXISTEN REGISTROS, FILTRAR PARA VER LOS REGISTROS ANTERIORES.
                     </td>
                 </tr>
             </ng-template>

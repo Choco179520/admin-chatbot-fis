@@ -1,67 +1,5 @@
 @import "src/styles";
 
-// .container-bloqueo {
-//     border-radius: 12px;
-//     background: #D9D9D9;
-//     padding: 1rem;
-//     display: grid;
-//     grid-template-columns: 1fr;
-//     grid-template-rows: 2fr 1fr 0.5fr;
-//     grid-auto-columns: 1fr;
-//     gap: 0px 0px;
-//     grid-auto-flow: row;
-//     grid-template-areas:
-//         "texto"
-//         "opciones"
-//         "botones";
-
-//     .texto {
-//         grid-area: texto;
-//     }
-
-//     .opciones, .botones {
-//         display: grid;
-//         grid-template-columns: 1fr 1fr;
-//         grid-template-rows: 1fr;
-//         gap: 0px 10px;
-//         grid-auto-flow: row;
-//         grid-template-areas:
-//             "utterences responses";
-//         grid-area: botones;
-
-//         .utterences {
-//             justify-self: center;
-//             align-self: center;
-//             grid-area: utterences;
-
-//             p {
-//                 border-radius: 20px;
-//                 background: #FFFFFF;
-//                 padding-block: 0.5rem;
-//                 padding-inline: 1.5rem;
-//                 text-align: center;
-//                 font-size: 11px;
-//             }
-//         }
-
-//         .responses {
-//             justify-self: center;
-//             align-self: center;
-//             grid-area: responses;
-
-//             p {
-//                 border-radius: 20px;
-//                 background: #FFFFFF;
-//                 padding-block: 0.5rem;
-//                 padding-inline: 1.5rem;
-//                 text-align: center;
-//                 font-size: 11px;
-//             }
-//         }
-//     }
-// }
-
-
 .container-bloqueo {
     border-radius: 12px;
     background: #D9D9D9;
@@ -88,6 +26,7 @@
 
         h6 {
             text-align: center;
+            font-size: clamp(0.8rem, 0.2rem + 1.5vw, 1rem)
         }
     }
 
@@ -104,12 +43,12 @@
 
         .editar {
             grid-area: editar;
-            justify-self: center; 
+            justify-self: center;
         }
 
         .eliminar {
             grid-area: eliminar;
-            justify-self: center; 
+            justify-self: center;
         }
     }
 
@@ -133,7 +72,7 @@
                 padding-block: 0.5rem;
                 padding-inline: 1.5rem;
                 text-align: center;
-                font-size: 11px;
+                font-size: clamp(0.5rem, 0.4rem + 0.9vw, 0.8rem)
             }
         }
 
@@ -146,7 +85,8 @@
                 padding-block: 0.5rem;
                 padding-inline: 1.5rem;
                 text-align: center;
-                font-size: 11px;
+                // font-size: 11px;
+                font-size: clamp(0.5rem, 0.4rem + 0.9vw, 0.8rem)
             }
         }
     }

@@ -19,7 +19,7 @@
 
             <div class="row">
                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
-                    <button [disabled]="formDocument.invalid" (click)="acept()" class="btn boton-1" type="button">Aceptar</button>
+                    <button [disabled]="formDocument.invalid || !formDocument.dirty" (click)="acept()" class="btn boton-1" type="button">Aceptar</button>
                 </div>
                 <div style="margin-bottom: 2rem;" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
                     <button (click)="cancel()" class="btn boton-2" type="button">Cancelar</button>

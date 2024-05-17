@@ -11,7 +11,7 @@
         <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-8 col-sm-6 col-12 col-sm-12 mb-4">
             <form [formGroup]="formularioBusqueda">
                 <div class="search-container">
-                    <input formControlName="search" type="text" placeholder="Buscar por nombre de documento">
+                    <input formControlName="search" type="text" placeholder="Buscar por el título de documento">
                     <button readonly><img src="assets/icons/search.svg"></button>
                 </div>
             </form>
@@ -23,11 +23,15 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mb-4"
+    <div class="row" *ngIf="registros.length > 0">
+        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 mb-4"
             *ngFor="let register of registros">
             <app-tarjeta-ultimo-nivel [register]="register"
                 (opcionSelected)="opcionSelected($event)"></app-tarjeta-ultimo-nivel>
         </div>
+    </div>
+
+    <div class="row" *ngIf="registros.length == 0">
+        <h3 style="text-align: center; font-weight: 600;">NO EXISTEN REGISTROS, FILTRAR PARA VER LOS REGISTROS ANTERIORES.</h3>
     </div>
 </div>

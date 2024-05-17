@@ -9,7 +9,7 @@ export const COLUMNA_USUARIOS = [
 
 export const COLUMNA_RESPUESTAS = [
     {field: 'identificador', header: '#'},
-    {field: 'name', header: 'Respuestas'},
+    {field: 'response', header: 'Respuestas'},
     {field: 'type', header: 'Type'},
     {field: 'acciones', header: 'Acciones'},
 ];

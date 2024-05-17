@@ -1,17 +1,17 @@
 <div class="container-bloqueo">
     <div class="texto">
-        <p><strong>id:</strong> {{register.id}}</p>
+        <!-- <p><strong>id:</strong> {{register.id}}</p> -->
         <h6><strong>Título:</strong> {{register.title}}</h6>
     </div>
     <div class="botones">
         <div class="editar">
-            <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
-                <img src="assets/icons/delete.svg" alt="Icono">
+            <button class="btn boton-4 mx-3 mb-2" (click)="selectOpcion('edit')">
+                <img src="assets/icons/edit.svg" alt="Icono">
             </button>
         </div>
         <div class="eliminar">
-            <button class="btn boton-4 mx-3 mb-2" (click)="selectOpcion('edit')">
-                <img src="assets/icons/edit.svg" alt="Icono">
+            <button class="btn boton-5 mx-3 mb-2" (click)="selectOpcion('delete')">
+                <img src="assets/icons/delete.svg" alt="Icono">
             </button>
         </div>
     </div>

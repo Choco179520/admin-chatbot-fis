@@ -77,14 +77,18 @@ export class GestionRespuestasComponent {
     const busquedaC = this.campoBusqueda;
     busquedaC.valueChanges.subscribe((bus) => {
       this.registros = this.documentos.filter((entidad: any) => {
-        const nameExists = entidad.name && typeof entidad.name === "string";
+        const nameExists =
+          entidad?.response?.name &&
+          typeof entidad?.response?.name === "string";
         const contentExists =
-          entidad.content && typeof entidad.content === "string";
+          entidad?.response?.content &&
+          typeof entidad?.response?.content === "string";
         const nameMatches =
-          nameExists && entidad.name.toLowerCase().includes(bus.toLowerCase());
+          nameExists &&
+          entidad?.response.name.toLowerCase().includes(bus.toLowerCase());
         const contentMatches =
           contentExists &&
-          entidad.content.toLowerCase().includes(bus.toLowerCase());
+          entidad?.response?.content.toLowerCase().includes(bus.toLowerCase());
         return nameMatches || contentMatches;
       });
     });
@@ -115,6 +119,8 @@ export class GestionRespuestasComponent {
   delete(rowData: any, ri: number) {}
 
   edit(rowData: any, ri: number) {
+    console.log(rowData, "row..");
+
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
       widthModal = TAMANIO_MODAL_MOVIL;
@@ -123,7 +129,7 @@ export class GestionRespuestasComponent {
     const dialogRef = this._dialog.open(AgregarEditarRespuestasComponent, {
       width: widthModal,
       disableClose: true,
-      data: { ...rowData },
+      data: { ...rowData.response },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

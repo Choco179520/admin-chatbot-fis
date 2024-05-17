@@ -77,7 +77,7 @@ export class GestionExpresionesComponent {
     const busquedaC = this.campoBusqueda;
     busquedaC.valueChanges.subscribe((bus) => {
       this.registros = this.documentos.filter((entidad: any) =>
-        entidad.toLowerCase().includes(bus.toLowerCase())
+        entidad.utterance.toLowerCase().includes(bus.toLowerCase())
       );
     });
   }
@@ -115,7 +115,7 @@ export class GestionExpresionesComponent {
     const dialogRef = this._dialog.open(AgregarEditarExpresionesComponent, {
       width: widthModal,
       disableClose: true,
-      data: rowData,
+      data: rowData.utterance,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
