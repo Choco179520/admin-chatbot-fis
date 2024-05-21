@@ -36,9 +36,33 @@ export class DocumentService {
     return this.http.get<any>(uriPeticion);
   }
 
+  postUtterances(payload: any) {
+    const path = `utterances`;
+    const uriPeticion = `${this.url}/${path}`;
+    return this.http.post<any>(uriPeticion, payload);
+  }
+
+  putUtterancesById(id: number, payload: any) {
+    const path = `utterances/${id}`;
+    const uriPeticion = `${this.url}/${path}`;
+    return this.http.put<any>(uriPeticion, payload);
+  }
+
   getResponsesById(id: number) {
     const path = `responses/${id}`;
     const uriPeticion = `${this.url}/${path}`;
     return this.http.get<any>(uriPeticion);
+  }
+
+  postResponses(payload: any) {
+    const path = `responses`;
+    const uriPeticion = `${this.url}/${path}`;
+    return this.http.post<any>(uriPeticion, payload);
+  }
+
+  putResponsesById(id: number, payload: any) {
+    const path = `responses/${id}`;
+    const uriPeticion = `${this.url}/${path}`;
+    return this.http.put<any>(uriPeticion, payload);
   }
 }

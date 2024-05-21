@@ -25,7 +25,7 @@ export const navbarData: INavbarData[] = [
     },
     {
         routeLink: './cerrar-sesion',
-        icon: 'assets/iconos/logout.png',
+        icon: 'assets/icons/logout.svg',
         label: 'CERRAR SESIÓN',
         items: [
             {

@@ -48,9 +48,10 @@
 
             <ng-template pTemplate="body" let-rowData let-columns="columns" let-ri="rowIndex">
                 <tr>
-                    <td *ngFor="let col of columns" pEditableColumn style="text-align:center">
+                    <td [ngClass]="{ 'modified-class': !rowData.estado, 'delete-class': rowData.eliminar }"
+                        *ngFor="let col of columns" pEditableColumn style="text-align:center">
                         <div *ngIf="col.field==='identificador'" style="font-size: 14px">
-                            {{ri + 1}}
+                            <p>{{ri + 1}}</p>
                         </div>
 
                         <div *ngIf="col.field==='response'" style="font-size: 14px">

@@ -16,6 +16,7 @@ import { ModalGeneralService } from "src/app/core/services/loadings/modal-genera
 import { AgregarEditarRespuestasComponent } from "../../modals/agregar-editar-respuestas/agregar-editar-respuestas.component";
 import { MenuItem } from "primeng/api";
 import { DocumentService } from "src/app/core/services/rest/documents.service";
+import { ModalInterface } from "src/app/core/interfaces/modal.interface";
 
 @Component({
   selector: "app-gestion-respuestas",
@@ -122,7 +123,30 @@ export class GestionRespuestasComponent {
     });
   }
 
-  delete(rowData: any, ri: number) {}
+  async delete(rowData: any, ri: number) {
+    const infoModal: ModalInterface = {
+      titulo: '¿Estás seguro que deseas eliminar el documento?',
+      icono: 'question',
+    }
+    const modal = await this._modalGeneralService.mensajeModalConsulta(infoModal);
+    if (modal) {
+      const jsonUpdate = {
+        eliminar: Number(!rowData.eliminar),
+      }      
+      this._documentService.putResponsesById(rowData.id, jsonUpdate)
+      .subscribe({
+        next: (resp) => {
+          console.log(resp, 'respuesta update'); 
+          this.registros[ri].eliminar = resp.eliminar;
+          this.documentos = this.registros;
+        },
+        error: (err) => {
+          console.error(err);
+          
+        }
+      })
+    }
+  }
 
   edit(rowData: any, ri: number) {
     console.log(rowData, "row..");
