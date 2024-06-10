@@ -16,6 +16,7 @@ import {
 } from "src/app/core/constants/valores.constantes";
 import { MenuItem } from "primeng/api";
 import { DocumentService } from "src/app/core/services/rest/documents.service";
+import { ModalInterface } from "src/app/core/interfaces/modal.interface";
 
 @Component({
   selector: "app-gestion-expresiones",
@@ -28,9 +29,9 @@ export class GestionExpresionesComponent {
   items!: MenuItem[];
 
   itemsBall = [
-    { color: '#D9D9D9', text: 'Registro sin modificación' },
-    { color: '#6ad3fd', text: 'Registro modificado' },
-    { color: '#ff432c', text: 'Registro eliminado' }
+    { color: "#D9D9D9", text: "Registro sin modificación" },
+    { color: "#6ad3fd", text: "Registro modificado" },
+    { color: "#ff432c", text: "Registro eliminado" },
   ];
 
   registros: any = [];
@@ -57,7 +58,7 @@ export class GestionExpresionesComponent {
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params: any) => {
-      console.log(params, 'params...');
+      console.log(params, "params...");
       this.titulo = params.title;
       this.id = params.id;
     });
@@ -110,9 +111,41 @@ export class GestionExpresionesComponent {
     });
   }
 
-  delete(rowData: any, ri: number) {}
+  async deleteUtterance(rowData: any, ri: number) {
+    console.log(rowData, "rowdata...");
 
-  edit(rowData: any, ri: number) {
+    const infoModal: ModalInterface = {
+      titulo: "¿Estás seguro que deseas eliminar la expresión?",
+      icono: "question",
+    };
+    const modal = await this._modalGeneralService.mensajeModalConsulta(
+      infoModal
+    );
+    if (modal) {
+      const jsonUpdate = {
+        eliminar: Number(!rowData.eliminar),
+        document: rowData.document.id,
+      };
+      console.log(jsonUpdate, "delete");
+
+      this._documentService
+        .putUtterancesById(rowData.id, jsonUpdate)
+        .subscribe({
+          next: (resp) => {
+            console.log(resp, "respuesta update");
+            this.registros[ri].eliminar = resp.eliminar;
+            this.documentos = this.registros;
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
+    }
+  }
+
+  editUtterance(rowData: any, ri: number) {
+    console.log(rowData, "rowData....");
+
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
       widthModal = TAMANIO_MODAL_MOVIL;
@@ -126,7 +159,33 @@ export class GestionExpresionesComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result, "result.....");
+        const json = {
+          ...result,
+          estado: 0,
+          eliminar: rowData.eliminar,
+          document: rowData.document.id,
+        };
+
+        this._documentService.putUtterancesById(rowData.id, json).subscribe({
+          next: (resp) => {
+            this.registros[ri].utterance = resp.utterance;
+            this.registros[ri].estado = resp.estado;
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              "success",
+              "Se actualizo exitosamente"
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              "error",
+              "Error al actualizar la información, intentelo nuevamente"
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }
@@ -144,8 +203,7 @@ export class GestionExpresionesComponent {
 
   getUtterances() {
     this.loading = true;
-    this._documentService.getUtterancesById(this.id)
-    .subscribe({
+    this._documentService.getUtterancesById(this.id).subscribe({
       next: (resp) => {
         this.registros = resp;
         console.log(this.registros);
@@ -155,6 +213,6 @@ export class GestionExpresionesComponent {
       error: (err) => {
         this.loading = false;
       },
-    })
+    });
   }
 }

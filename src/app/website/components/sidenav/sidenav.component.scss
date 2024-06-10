@@ -91,13 +91,19 @@
       .sidenav-link-text {
         font-size: $tamano-fuente-3;
         margin-left: 1rem;
-        color: #000;
+        color: #fff;
       }
     }
 
     .sidenav-nav-link:hover {
       background-color: $color-2;
       color: $color-1;
+
+      .sidenav-link-text {
+        font-size: $tamano-fuente-3;
+        margin-left: 1rem;
+        color: #000;
+      }
     }
   }
 }
@@ -108,7 +114,7 @@
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: $color-1;
+    color: #000;
   }
 }
 

@@ -35,7 +35,7 @@
     <div class="row" style="margin-top: 2rem;">
         <p-table [value]="registros" [totalRecords]="totalRecords" [loading]="loading" [columns]="columnas"
             editMode="row" dataKey="id" styleClass="p-datatable-responsive-demo" [scrollable]="true"
-            scrollHeight="650px">
+            scrollHeight="550px">
 
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -64,11 +64,11 @@
                         </div>
 
                         <div *ngIf="col.field==='acciones'" style="font-size: 14px">
-                            <button class="btn boton-4 mx-3 mb-2" (click)="edit(rowData, ri)">
+                            <button class="btn boton-4 mx-3 mb-2" (click)="editResponse(rowData, ri)">
                                 <img src="assets/icons/edit.svg" alt="Icono">
                             </button>
 
-                            <button class="btn boton-5 mx-3 mb-2" (click)="delete(rowData, ri)">
+                            <button class="btn boton-5 mx-3 mb-2" (click)="deleteResponse(rowData, ri)">
                                 <img src="assets/icons/delete.svg" alt="Icono">
                             </button>
                         </div>

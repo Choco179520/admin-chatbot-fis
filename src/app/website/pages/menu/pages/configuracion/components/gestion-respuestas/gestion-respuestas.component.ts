@@ -29,9 +29,9 @@ export class GestionRespuestasComponent {
   items!: MenuItem[];
 
   itemsBall = [
-    { color: '#D9D9D9', text: 'Registro sin modificación' },
-    { color: '#6ad3fd', text: 'Registro modificado' },
-    { color: '#ff432c', text: 'Registro eliminado' }
+    { color: "#D9D9D9", text: "Registro sin modificación" },
+    { color: "#6ad3fd", text: "Registro modificado" },
+    { color: "#ff432c", text: "Registro eliminado" },
   ];
 
   registros: any = [];
@@ -123,32 +123,37 @@ export class GestionRespuestasComponent {
     });
   }
 
-  async delete(rowData: any, ri: number) {
+  async deleteResponse(rowData: any, ri: number) {
+    console.log(rowData, 'rowdata...');
+    
     const infoModal: ModalInterface = {
-      titulo: '¿Estás seguro que deseas eliminar el documento?',
-      icono: 'question',
-    }
-    const modal = await this._modalGeneralService.mensajeModalConsulta(infoModal);
+      titulo: "¿Estás seguro que deseas eliminar la respuesta?",
+      icono: "question",
+    };
+    const modal = await this._modalGeneralService.mensajeModalConsulta(
+      infoModal
+    );
     if (modal) {
       const jsonUpdate = {
         eliminar: Number(!rowData.eliminar),
-      }      
-      this._documentService.putResponsesById(rowData.id, jsonUpdate)
-      .subscribe({
+        document: rowData.document.id,
+      };
+      console.log(jsonUpdate, 'delete');
+      
+      this._documentService.putResponsesById(rowData.id, jsonUpdate).subscribe({
         next: (resp) => {
-          console.log(resp, 'respuesta update'); 
+          console.log(resp, "respuesta update");
           this.registros[ri].eliminar = resp.eliminar;
           this.documentos = this.registros;
         },
         error: (err) => {
           console.error(err);
-          
-        }
-      })
+        },
+      });
     }
   }
 
-  edit(rowData: any, ri: number) {
+  editResponse(rowData: any, ri: number) {
     console.log(rowData, "row..");
 
     let widthModal = TAMANIO_MODAL;
@@ -165,6 +170,37 @@ export class GestionRespuestasComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log(result, "result.....");
+        const json = {
+          response: JSON.stringify({...result}),
+          estado: 0,
+          eliminar: rowData.eliminar,
+          document: rowData.document.id,
+        };
+
+        console.log(json, "json.....");
+
+
+        this._documentService.putResponsesById(rowData.id, json).subscribe({
+          next: (resp) => {
+            console.log(resp, ';respuesta update....');
+            
+            this.registros[ri].response = JSON.parse(resp.response);
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              "success",
+              "Se actualizo exitosamente"
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              "error",
+              "Error al actualizar la información, intentelo nuevamente"
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }

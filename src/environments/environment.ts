@@ -11,12 +11,15 @@ export const environment = {
   // permisosAzure: ['user.read','openid', 'profile'],
   permisosAzure: ['user.read','openid', 'profile'],
   urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
-  clientId: 'f9460765-2e51-4f7a-97a0-a81164fb1aeb',
+  clientId: '2c490376-e431-46ea-82e0-0403c3589245',
   tenantId: '682a4e6a-a77f-4958-a3ac-9e266d18aa37',
   urlMicrosoft: 'https://login.microsoftonline.com/',
   redirectUri: 'http://localhost:4200/inicio-sesion',
   // 172.29.80.63
 };
+
+// Valor: 9gm8Q~PTKzljM5Y5XXB5QO~zPM3qkaA7K4677bD0
+// Id. de secreto: 6ce30f05-5377-422a-8d4e-2b00c704a30a
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -24,7 +24,7 @@ export class AgregarEditarExpresionesComponent implements OnInit{
 
   formInicializar() {
     this.formExpression = this._formBuilder.group({
-      expression: new FormControl(
+      utterance: new FormControl(
         this.data ?? "",
         Validators.compose([Validators.required])
       ),
