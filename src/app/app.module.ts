@@ -38,16 +38,16 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HttpClientModule,
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: RequestInterceptorService,
-    //   multi: true,
-    // },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: ResponseInterceptorService,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptorService,
+      multi: true,
+    },
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory,

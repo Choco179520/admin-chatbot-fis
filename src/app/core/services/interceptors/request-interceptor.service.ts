@@ -36,12 +36,9 @@ export class RequestInterceptorService implements HttpInterceptor {
 
   setearToken(request: any): any {
     const accessTokenString =
-      this._cookiesService.obtenerCookie(COOKIE_JWT_TOKEN);
-
+      this._cookiesService.obtenerCookie(COOKIE_JWT_TOKEN);      
     if (accessTokenString) {
-      const accessToken = JSON.parse(
-        this._encriptadoService.desencriptarInformacionCookie(accessTokenString)
-      );
+      const accessToken = this._encriptadoService.desencriptarInformacionCookie(accessTokenString)      
       const isExpired = helper.isTokenExpired(accessToken);
       if (isExpired) {
         this._cookiesService.eliminarTodasCookies();
