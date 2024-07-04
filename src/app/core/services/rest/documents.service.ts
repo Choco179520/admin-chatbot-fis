@@ -65,4 +65,10 @@ export class DocumentService {
     const uriPeticion = `${this.url}/${path}`;
     return this.http.put<any>(uriPeticion, payload);
   }
+
+  getSyncronize() {
+    const path = `update-chatbot`;
+    const uriPeticion = `${this.url}/${path}`;
+    return this.http.get<any>(uriPeticion);
+  }
 }

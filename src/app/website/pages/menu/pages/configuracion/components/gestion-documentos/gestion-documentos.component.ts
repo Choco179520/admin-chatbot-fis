@@ -28,9 +28,9 @@ export class GestionDocumentosComponent {
   items!: MenuItem[];
 
   itemsBall = [
-    { color: '#D9D9D9', text: 'Registro sin modificación' },
-    { color: '#6ad3fd', text: 'Registro modificado' },
-    { color: '#ff432c', text: 'Registro eliminado' }
+    { color: "#D9D9D9", text: "Registro sin modificación" },
+    { color: "#6ad3fd", text: "Registro modificado" },
+    { color: "#ff432c", text: "Registro eliminado" },
   ];
 
   registros: any = [];
@@ -124,7 +124,7 @@ export class GestionDocumentosComponent {
         const json = {
           ...result,
           estado: 0,
-          eliminar: 0
+          eliminar: 0,
         };
         this._documentService.postDocuments(json).subscribe({
           next: (resp) => {
@@ -134,15 +134,15 @@ export class GestionDocumentosComponent {
             this.documentos = this.registros;
             this.loading = false;
             this._modalGeneralService.toasterMensaje(
-              'success',
-              'Se creó exitosamente el registro.'
+              "success",
+              "Se creó exitosamente el registro."
             );
           },
           error: (err) => {
             console.error(err, "error update");
             this._modalGeneralService.toasterMensaje(
-              'error',
-              'Error al crear el registro, intentelo nuevamente'
+              "error",
+              "Error al crear el registro, intentelo nuevamente"
             );
             this.loading = false;
           },
@@ -169,26 +169,26 @@ export class GestionDocumentosComponent {
         const json = {
           ...result,
           estado: 0,
-          eliminar: register.eliminar
-        };        
+          eliminar: register.eliminar,
+        };
 
         this._documentService.putDocuments(register.id, json).subscribe({
-          next: (resp) => {            
+          next: (resp) => {
             this.registros[indice].title = resp.title;
             this.registros[indice].estado = resp.estado;
             this.registros[indice].fechaActualizacion = resp.fechaActualizacion;
             this.documentos = this.registros;
             this.loading = false;
             this._modalGeneralService.toasterMensaje(
-              'success',
-              'Se actualizo exitosamente'
+              "success",
+              "Se actualizo exitosamente"
             );
           },
           error: (err) => {
             console.error(err, "error update");
             this._modalGeneralService.toasterMensaje(
-              'error',
-              'Error al actualizar la información, intentelo nuevamente'
+              "error",
+              "Error al actualizar la información, intentelo nuevamente"
             );
             this.loading = false;
           },
@@ -199,28 +199,27 @@ export class GestionDocumentosComponent {
 
   async deleteDocument(register: any, indice: number) {
     const infoModal: ModalInterface = {
-      titulo: '¿Estás seguro que deseas eliminar el documento?',
-      icono: 'question',
-    }
-    const modal = await this._modalGeneralService.mensajeModalConsulta(infoModal);
+      titulo: "¿Estás seguro que deseas eliminar el documento?",
+      icono: "question",
+    };
+    const modal = await this._modalGeneralService.mensajeModalConsulta(
+      infoModal
+    );
     if (modal) {
       const jsonUpdate = {
         eliminar: Number(!register.eliminar),
-      }      
-      this._documentService.putDocuments(register.id, jsonUpdate)
-      .subscribe({
+      };
+      this._documentService.putDocuments(register.id, jsonUpdate).subscribe({
         next: (resp) => {
-          console.log(resp, 'respuesta update'); 
+          console.log(resp, "respuesta update");
           this.registros[indice].eliminar = resp.eliminar;
           this.documentos = this.registros;
         },
         error: (err) => {
           console.error(err);
-          
-        }
-      })
+        },
+      });
     }
-    
   }
 
   navigatedUtterences(register: any) {
@@ -272,6 +271,15 @@ export class GestionDocumentosComponent {
         this.registros = resp;
         console.log(this.registros);
         this.documentos = this.registros;
+      },
+      error: (err) => {},
+    });
+  }
+
+  sincronize() {
+    this._documentService.getSyncronize().subscribe({
+      next: (resp) => {
+        console.log(resp, "respuesta....");
       },
       error: (err) => {},
     });

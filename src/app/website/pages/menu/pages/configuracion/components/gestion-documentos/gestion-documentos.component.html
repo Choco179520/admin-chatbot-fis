@@ -2,6 +2,10 @@
     <div class="row">
         <h4>GESTIÓN DE DOCUMENTOS</h4>
 
+        <div class="offset-xxl-4 col-xxl-4 offset-xl-4 col-xl-4 offset-lg-3 col-lg-6 offset-md-3 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mb-4">
+            <button (click)="sincronize()" class="btn boton-1" type="button">Sincronizar</button>
+        </div>
+
 
         <div class="row container-opciones-bloqueo">
             <div *ngFor="let item of itemsBall" class="item-container">
