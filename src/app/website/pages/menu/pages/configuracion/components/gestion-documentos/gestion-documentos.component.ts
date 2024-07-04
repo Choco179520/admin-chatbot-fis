@@ -211,7 +211,6 @@ export class GestionDocumentosComponent {
       };
       this._documentService.putDocuments(register.id, jsonUpdate).subscribe({
         next: (resp) => {
-          console.log(resp, "respuesta update");
           this.registros[indice].eliminar = resp.eliminar;
           this.documentos = this.registros;
         },
@@ -224,13 +223,11 @@ export class GestionDocumentosComponent {
 
   navigatedUtterences(register: any) {
     let path = `${this.pathSiguiente}/${register.id}/${register.title}/expresiones`;
-    console.log(path, "navegacion ....");
     this._router.navigate([path]).then();
   }
 
   navigatedResponses(register: any) {
     let path = `${this.pathSiguiente}/${register.id}/${register.title}/respuestas`;
-    console.log(path, "navegacion ....");
     this._router.navigate([path]).then();
   }
 
@@ -269,7 +266,6 @@ export class GestionDocumentosComponent {
         // ];
 
         this.registros = resp;
-        console.log(this.registros);
         this.documentos = this.registros;
       },
       error: (err) => {},

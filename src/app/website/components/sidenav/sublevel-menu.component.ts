@@ -145,9 +145,6 @@ export class SublevelMenuComponent implements OnInit {
 
   navegate(item: INavbarData): void {
     const ruta = `./menu/${item.path}`;
-
-    console.log(ruta, "===== rutaaaa =====");
-
     this._router.navigate([ruta]).then((resp) => {
       this.toggleEvent.emit(false);
     });

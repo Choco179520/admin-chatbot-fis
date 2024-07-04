@@ -94,6 +94,11 @@ $border-radius-botones: 10px;
   opacity: 0.5;
 }
 
+.boton-1:disabled {
+  opacity: 0.5;
+  border: none;
+}
+
 .boton-2 {
   color: #ffffff;
   font-weight: 700;
@@ -107,6 +112,11 @@ $border-radius-botones: 10px;
   color: #ffffff;
   background-color: $color-2;
   opacity: 0.5;
+}
+
+.boton-2:disabled {
+  opacity: 0.5;
+  border: none;
 }
 
 .boton-3 {
@@ -123,6 +133,11 @@ $border-radius-botones: 10px;
   opacity: 0.5;
 }
 
+.boton-3:disabled {
+  opacity: 0.5;
+  border: none;
+}
+
 .boton-4 {
   color: black;
   font-weight: 700;
@@ -137,6 +152,11 @@ $border-radius-botones: 10px;
   opacity: 0.5;
 }
 
+.boton-4:disabled {
+  opacity: 0.5;
+  border: none;
+}
+
 .boton-5 {
   color: black;
   font-weight: 700;
@@ -149,6 +169,11 @@ $border-radius-botones: 10px;
   color: #ffffff;
   background-color: $color-4;
   opacity: 0.5;
+}
+
+.boton-5:disabled {
+  opacity: 0.5;
+  border: none;
 }
 
 .centrar-imagen {

@@ -27,13 +27,9 @@ export class CambiarContraseniaComponent {
     private readonly _formBuilder: FormBuilder,
     private readonly _authService: AuthService,
     private readonly _modalGeneralService: ModalGeneralService
-  ) {
-    console.log(this.data, 'data....');
-    
-  }
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.data, "data......");
     this.formInicializar();
   }
 
@@ -85,12 +81,10 @@ export class CambiarContraseniaComponent {
   };
 
   acept() {
-    console.log(this.formPassword, "value....");
     if (this.formPassword.valid) {
       this.formPassword.value.email = this.data.email;
       this._authService.cambiarContrasenia(this.formPassword.value).subscribe({
         next: (resp) => {
-          console.log(resp);
           if (resp.status == "ok") {
             this._modalGeneralService.toasterMensaje("success", resp.message);
             this.dialogRef.close();

@@ -18,6 +18,9 @@ import {
   FormControl,
   AbstractControl,
 } from "@angular/forms";
+import { CookiesService } from "src/app/core/services/cookies/cookies.service";
+import { COOKIE_USER } from "src/app/core/constants/nombres-cookies.constantes";
+import { EncriptadoService } from "src/app/core/services/encriptacion/encriptacion-aes.service";
 
 @Component({
   selector: "app-gestion-usuarios",
@@ -26,7 +29,7 @@ import {
 })
 export class GestionUsuariosComponent implements OnInit {
   formularioBusqueda!: FormGroup | any;
-
+  user!: any;
   registros: any = [];
   usuarios: any = [];
   totalRecords!: number;
@@ -39,8 +42,15 @@ export class GestionUsuariosComponent implements OnInit {
     private readonly _usuarioService: UsuarioService,
     private readonly _dialog: MatDialog,
     private readonly _modalGeneralService: ModalGeneralService,
-    private readonly _formBuilder: FormBuilder
-  ) {}
+    private readonly _formBuilder: FormBuilder,
+    private readonly _cookiesService: CookiesService,
+    private readonly _encriptadoService: EncriptadoService
+  ) {
+    const userEncript = this._cookiesService.obtenerCookie(COOKIE_USER);    
+    this.user = JSON.parse(
+      this._encriptadoService.desencriptarInformacionCookie(userEncript)
+    );    
+  }
 
   ngOnInit(): void {
     this.getUsers();
@@ -98,13 +108,16 @@ export class GestionUsuariosComponent implements OnInit {
           nombre: result.names,
           email: result.email,
           rol: result.rol,
-          password: result.password
+          password: result.password,
         };
         this._usuarioService.postUsuario(jsonUser).subscribe({
           next: (respUser: any) => {
             this.usuarios.unshift(respUser);
             this.registros = this.usuarios;
-            this._modalGeneralService.toasterMensaje('success', 'Se agrego exitosamente el usuario');
+            this._modalGeneralService.toasterMensaje(
+              "success",
+              "Se agrego exitosamente el usuario"
+            );
           },
           error: (err) => {
             console.error(err, "error...");
@@ -134,7 +147,10 @@ export class GestionUsuariosComponent implements OnInit {
           this.loading = false;
           this.usuarios[ri].estado = resp.estado;
           this.registros = this.usuarios;
-          this._modalGeneralService.toasterMensaje('success', 'Se ha actualizado exitosamente el estado');
+          this._modalGeneralService.toasterMensaje(
+            "success",
+            "Se ha actualizado exitosamente el estado"
+          );
         },
         error: (err) => {
           this.loading = false;
@@ -170,8 +186,6 @@ export class GestionUsuariosComponent implements OnInit {
         this._usuarioService.putUsuario(jsonUser, rowData.id).subscribe({
           next: (respUser: any) => {
             this.loading = false;
-            this.usuarios[ri].nombre = respUser.nombre;
-            this.usuarios[ri].email = respUser.email;
             this.usuarios[ri].rol = respUser.rol;
             this.registros = this.usuarios;
           },
@@ -205,13 +219,12 @@ export class GestionUsuariosComponent implements OnInit {
       this.loading = true;
       this._usuarioService.deleteUser(rowData.id).subscribe({
         next: (respDelete) => {
-          console.log(respDelete, "respDelete....");
           this.usuarios.splice(ri, 1);
           this.registros = this.usuarios;
           this.loading = false;
         },
         error: (err) => {
-          console.log(err, "err respDelete....");
+          console.error(err, "err respDelete....");
           this.loading = false;
         },
       });

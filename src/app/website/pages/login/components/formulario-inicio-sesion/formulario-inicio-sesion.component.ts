@@ -19,7 +19,7 @@ import Validation from "src/app/core/helpers/validators/validators-document";
 import { AuthService } from "src/app/core/services/rest/auth.service";
 import { CambiarContraseniaComponent } from "../../modals/cambiar-contrasenia/cambiar-contrasenia.component";
 import { CookiesService } from "src/app/core/services/cookies/cookies.service";
-import { COOKIE_JWT_TOKEN } from "src/app/core/constants/nombres-cookies.constantes";
+import { COOKIE_JWT_TOKEN, COOKIE_USER } from "src/app/core/constants/nombres-cookies.constantes";
 import { EncriptadoService } from "src/app/core/services/encriptacion/encriptacion-aes.service";
 import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 
@@ -89,14 +89,16 @@ export class FormularioInicioSesionComponent implements OnInit {
   }
 
   iniciarSesion() {
-    console.log(this.formularioLogin, "formulario login.....");
     this._authService.iniciarSesion(this.formularioLogin.value).subscribe({
       next: (resp) => {
-        console.log(resp, "respuesta login");
         if (resp.accessToken) {
           this._coookiesService.almacenarCookie(
             COOKIE_JWT_TOKEN,
             this._encriptadoService.encriptarInformacionCookie(resp.accessToken)
+          );
+          this._coookiesService.almacenarCookie(
+            COOKIE_USER,
+            this._encriptadoService.encriptarInformacionCookie(JSON.stringify(resp.usuarioConsulta))
           );
           this._modalGeneralService.toasterMensaje(
             "success",
@@ -111,7 +113,6 @@ export class FormularioInicioSesionComponent implements OnInit {
         console.error(err, "respuesta error login");
         err.error.message = err.error.message.split(" :: ")[1];
         if (err.error.message == "La contraseña no ha sido restablecida") {
-          console.log("restablecer..");
           let widthModal = TAMANIO_MODAL;
           if (window.outerWidth < 500) {
             widthModal = TAMANIO_MODAL_MOVIL;
@@ -132,14 +133,13 @@ export class FormularioInicioSesionComponent implements OnInit {
   }
 
   inicioOffice() {
-    console.log("inicio de sesion......");
     this._msalService.instance
       .handleRedirectPromise()
       .then((res) => {
-        console.log(res, "respuesta......");
+        // console.log(res, "respuesta......");
 
         try {
-          console.log("metidi JC");
+          // console.log("metidi JC");
 
           this.metodoJc();
         } catch (err) {
@@ -154,13 +154,13 @@ export class FormularioInicioSesionComponent implements OnInit {
   metodoJc() {
     lastValueFrom(this._msalService.loginPopup())
       .then((res: any) => {
-        console.log(res, "loginPopup response....");
+        // console.log(res, "loginPopup response....");
 
         const consultaDatos = {
           nombre: res.account.name,
           correo: res.account.username,
         };
-        console.log(res, "esto es res");
+        // console.log(res, "esto es res");
 
         const tokenString = JSON.stringify(res.accessToken);
       })

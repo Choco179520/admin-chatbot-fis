@@ -123,9 +123,7 @@ export class GestionRespuestasComponent {
     });
   }
 
-  async deleteResponse(rowData: any, ri: number) {
-    console.log(rowData, 'rowdata...');
-    
+  async deleteResponse(rowData: any, ri: number) {    
     const infoModal: ModalInterface = {
       titulo: "¿Estás seguro que deseas eliminar la respuesta?",
       icono: "question",
@@ -138,11 +136,9 @@ export class GestionRespuestasComponent {
         eliminar: Number(!rowData.eliminar),
         document: rowData.document.id,
       };
-      console.log(jsonUpdate, 'delete');
       
       this._documentService.putResponsesById(rowData.id, jsonUpdate).subscribe({
         next: (resp) => {
-          console.log(resp, "respuesta update");
           this.registros[ri].eliminar = resp.eliminar;
           this.documentos = this.registros;
         },
@@ -154,8 +150,6 @@ export class GestionRespuestasComponent {
   }
 
   editResponse(rowData: any, ri: number) {
-    console.log(rowData, "row..");
-
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
       widthModal = TAMANIO_MODAL_MOVIL;
@@ -169,7 +163,6 @@ export class GestionRespuestasComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result, "result.....");
         const json = {
           response: JSON.stringify({...result}),
           estado: 0,
@@ -177,13 +170,8 @@ export class GestionRespuestasComponent {
           document: rowData.document.id,
         };
 
-        console.log(json, "json.....");
-
-
         this._documentService.putResponsesById(rowData.id, json).subscribe({
-          next: (resp) => {
-            console.log(resp, ';respuesta update....');
-            
+          next: (resp) => {            
             this.registros[ri].response = JSON.parse(resp.response);
             this.documentos = this.registros;
             this.loading = false;
@@ -221,7 +209,6 @@ export class GestionRespuestasComponent {
     this._documentService.getResponsesById(this.id).subscribe({
       next: (resp) => {
         this.registros = resp;
-        console.log(this.registros);
         this.documentos = this.registros;
         this.loading = false;
       },

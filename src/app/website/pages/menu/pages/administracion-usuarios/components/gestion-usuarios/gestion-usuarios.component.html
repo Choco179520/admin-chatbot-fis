@@ -45,8 +45,9 @@
 
                             <div *ngIf="col.field==='estado'" style="font-size: 14px">
                                 <div class="d-grid gap-2">
-                                    <button class="btn boton-general" (click)="changeState(rowData, ri)" [ngClass]="{
-                                      'btn-danger':rowData[col.field] !== estados.ACTIVO,
+                                    <button [disabled]="user.email == rowData.email" class="btn boton-general"
+                                        (click)="changeState(rowData, ri)" [ngClass]="{
+                                      'btn-danger':rowData[col.field] === estados.INACTIVO || rowData[col.field] === estados.BLOQUEADO_LOGIN,
                                       'btn-success':rowData[col.field] === estados.ACTIVO,
                                       'btn-warning':rowData[col.field] === estados.PENDIENTE_ACTIVACION,
                                       }">{{rowData[col.field]}}
@@ -67,11 +68,13 @@
                             </div>
 
                             <div *ngIf="col.field==='acciones'" style="font-size: 14px">
-                                <button class="btn boton-5 mx-3 mb-2" (click)="deleteUser(rowData, ri)">
+                                <button [disabled]="user.email == rowData.email" class="btn boton-5 mx-3 mb-2"
+                                    (click)="deleteUser(rowData, ri)">
                                     <img src="assets/icons/delete.svg" alt="Icono">
                                 </button>
 
-                                <button class="btn boton-4 mx-3 mb-2" (click)="editUser(rowData, ri)">
+                                <button [disabled]="user.email == rowData.email" class="btn boton-4 mx-3 mb-2"
+                                    (click)="editUser(rowData, ri)">
                                     <img src="assets/icons/edit.svg" alt="Icono">
                                 </button>
                             </div>

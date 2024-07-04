@@ -58,7 +58,6 @@ export class GestionExpresionesComponent {
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params: any) => {
-      console.log(params, "params...");
       this.titulo = params.title;
       this.id = params.id;
     });
@@ -106,14 +105,11 @@ export class GestionExpresionesComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result, "result.....");
       }
     });
   }
 
   async deleteUtterance(rowData: any, ri: number) {
-    console.log(rowData, "rowdata...");
-
     const infoModal: ModalInterface = {
       titulo: "¿Estás seguro que deseas eliminar la expresión?",
       icono: "question",
@@ -126,13 +122,11 @@ export class GestionExpresionesComponent {
         eliminar: Number(!rowData.eliminar),
         document: rowData.document.id,
       };
-      console.log(jsonUpdate, "delete");
 
       this._documentService
         .putUtterancesById(rowData.id, jsonUpdate)
         .subscribe({
           next: (resp) => {
-            console.log(resp, "respuesta update");
             this.registros[ri].eliminar = resp.eliminar;
             this.documentos = this.registros;
           },
@@ -144,7 +138,6 @@ export class GestionExpresionesComponent {
   }
 
   editUtterance(rowData: any, ri: number) {
-    console.log(rowData, "rowData....");
 
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
@@ -206,7 +199,6 @@ export class GestionExpresionesComponent {
     this._documentService.getUtterancesById(this.id).subscribe({
       next: (resp) => {
         this.registros = resp;
-        console.log(this.registros);
         this.documentos = this.registros;
         this.loading = false;
       },

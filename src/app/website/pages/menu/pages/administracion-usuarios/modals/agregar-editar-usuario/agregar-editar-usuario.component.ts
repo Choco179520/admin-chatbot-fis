@@ -25,14 +25,13 @@ export class AgregarEditarUsuarioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data, "data......");
     this.formInicializar();
   }
 
   formInicializar() {
     this.formUser = this._formBuilder.group({
       email: new FormControl(
-        this.data?.data?.email ?? "",
+        { value: this.data?.data?.email ?? "", disabled: this.data },
         Validators.compose([
           Validators.email,
           Validators.required,
@@ -40,14 +39,17 @@ export class AgregarEditarUsuarioComponent implements OnInit {
         ])
       ),
       names: new FormControl(
-        this.data?.data?.nombre ?? "",
+        { value: this.data?.data?.nombre ?? "", disabled: this.data },
         Validators.compose([Validators.required])
       ),
       rol: new FormControl(
         this.data?.data?.rol ?? "",
         Validators.compose([Validators.required])
       ),
-      password: new FormControl("", Validators.compose([Validators.required])),
+      password: new FormControl(
+        { value: null, disabled: this.data },
+        Validators.compose([Validators.required])
+      ),
     });
   }
 
@@ -55,10 +57,11 @@ export class AgregarEditarUsuarioComponent implements OnInit {
     return this.formUser.get("email") as FormControl;
   }
 
-  acept() {
+  acept() {    
     if (this.formUser.valid) {
-      console.log(this.formUser.value, 'value....');
-      this.formUser.value.names = this.formUser.value.names.toUpperCase();
+      if (!this.data) {
+        this.formUser.value.names = this.formUser.value.names.toUpperCase();
+      }
       this.dialogRef.close(this.formUser.value);
     }
   }

@@ -8,7 +8,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 col-sm-12">
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-6 col-12 col-sm-12">
                     <div class="form-group">
                         <label for="email">Correo electrónico:</label>
                         <input style="height: 50px;" type="text" formControlName="email" class="form-control"
@@ -18,8 +18,16 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2 mt-4">
-                    <button (click)="search()" class="btn boton-1" type="button">Buscar</button>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button [disabled]="data" (click)="generarPassword()" class="btn boton-1" type="button">Generar Password</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <h2>{{passwordGenerado}}</h2>
+
+                    <p *ngIf="passwordGenerado" class="mensaje-password">Por favor, el código generado debes entregar al usuario que creaste</p>
                 </div>
             </div>
 
@@ -32,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                <div class="offset-xxl-3 col-xxl-6 offset-xl-3 col-xl-6 offset-lg-3 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="nombre">Rol:</label>
                         <select formControlName="rol" style="height: 50px;" class="form-select" aria-label="Default select example">
@@ -40,17 +48,6 @@
                             <option value="ADMIN">Administrador</option>
                             <option value="BASIC">Usuario</option>
                           </select>
-                    </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
-                    <div class="row">
-                        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
-                            <button (click)="generarPassword()" class="btn boton-1 btn-generar" type="button">Generar Password</button>
-                        </div>
-                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
-                            <h5>{{passwordGenerado}}</h5>
-                        </div>
                     </div>
                 </div>
             </div>
