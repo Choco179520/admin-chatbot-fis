@@ -13,6 +13,8 @@
                         <label for="email">Correo electrónico:</label>
                         <input style="height: 50px;" type="text" formControlName="email" class="form-control"
                             id="email" name="email">
+                        <h5 class="mensaje-error" *ngIf="campoEmail.hasError('email')">El correo ingresado es incorrecto</h5>
+                        <h5 class="mensaje-error" *ngIf="campoEmail.hasError('emailDomain')">El correo ingresado no pertenece a la EPN</h5>
                     </div>
                 </div>
 
@@ -25,16 +27,8 @@
                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">
                         <label for="names">Nombres:</label>
-                        <input style="height: 50px;" type="text" formControlName="names" class="form-control"
+                        <input onkeyup="this.value=this.value.toUpperCase()" style="height: 50px;" type="text" formControlName="names" class="form-control"
                             id="names" name="names">
-                    </div>
-                </div>
-
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
-                    <div class="form-group">
-                        <label for="phone">Celular:</label>
-                        <input style="height: 50px;" minlength="10" maxlength="10" type="tel" formControlName="phone" class="form-control"
-                            id="phone" name="phone">
                     </div>
                 </div>
 
@@ -42,10 +36,21 @@
                     <div class="form-group">
                         <label for="nombre">Rol:</label>
                         <select formControlName="rol" style="height: 50px;" class="form-select" aria-label="Default select example">
-                            <option selected>Seleccionar Rol</option>
+                            <option disabled>Seleccionar Rol</option>
                             <option value="ADMIN">Administrador</option>
                             <option value="BASIC">Usuario</option>
                           </select>
+                    </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="row">
+                        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                            <button (click)="generarPassword()" class="btn boton-1 btn-generar" type="button">Generar Password</button>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                            <h5>{{passwordGenerado}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>

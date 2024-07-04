@@ -7,22 +7,8 @@
 
 .formulario {
     max-height: calc(100% - 20px);
-    /* 20px de margen inferior */
 }
 
 .container-fluid {
     padding: 2rem;
-}
-
-.cabecera {
-    margin-top: 1rem;
-
-    h4,
-    p {
-        text-align: center;
-    }
-}
-
-.btn-generar {
-    width: 100%;
 }

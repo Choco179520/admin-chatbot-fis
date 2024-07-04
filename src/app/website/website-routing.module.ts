@@ -13,7 +13,7 @@ const routes: Routes = [
     {
         path: 'menu',
         component: LayoutComponent,
-        // canActivate: [EstaLogeadoGuard],
+        canActivate: [EstaLogeadoGuard],
         children: [
             {
                 path: '',

@@ -15,13 +15,12 @@ export class EstaLogeadoGuard implements CanActivate {
     private readonly _cookiesService: CookiesService,
     private readonly _router: Router,
     private readonly _encriptadoService: EncriptadoService,
-    private readonly _modalGeneralService: ModalGeneralService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const accessTokenString = this._cookiesService.obtenerCookie(COOKIE_JWT_TOKEN);
+    const accessTokenString = this._cookiesService.obtenerCookie(COOKIE_JWT_TOKEN);    
     if (accessTokenString) {
-      const accessToken = JSON.parse(this._encriptadoService.desencriptarInformacionCookie(accessTokenString));
+      const accessToken = this._encriptadoService.desencriptarInformacionCookie(accessTokenString);
       const isExpired = helper.isTokenExpired(accessToken);
       if (!isExpired) {
         return true;

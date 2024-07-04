@@ -1,11 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { GestionNivelUnoComponent } from "./components/gestion-nivel-uno/gestion-nivel-uno.component";
-import { GestionNivelDosComponent } from "./components/gestion-nivel-dos/gestion-nivel-dos.component";
-import { GestionNivelTresComponent } from "./components/gestion-nivel-tres/gestion-nivel-tres.component";
 import { GestionExpresionesComponent } from "./components/gestion-expresiones/gestion-expresiones.component";
 import { GestionRespuestasComponent } from "./components/gestion-respuestas/gestion-respuestas.component";
 import { GestionDocumentosComponent } from "./components/gestion-documentos/gestion-documentos.component";
+import { EstaLogeadoGuard } from "src/app/core/services/guards/esta-logeado.guard";
 
 const path = "./menu/configuracion/gestion-documentos";
 
@@ -26,6 +24,7 @@ const routes: Routes = [
       ],
     },
     component: GestionDocumentosComponent,
+    canActivate: [EstaLogeadoGuard],
   },
   {
     path: "gestion-documentos/:id/:title/respuestas",
@@ -44,6 +43,7 @@ const routes: Routes = [
       ],
     },
     component: GestionRespuestasComponent,
+    canActivate: [EstaLogeadoGuard],
   },
   {
     path: "gestion-documentos/:id/:title/expresiones",
@@ -62,117 +62,8 @@ const routes: Routes = [
       ],
     },
     component: GestionExpresionesComponent,
+    canActivate: [EstaLogeadoGuard],
   },
-
-  // {
-  //   path: "gestion-nivel-1",
-  //   data: {
-  //     path,
-  //     breadcrumb: [
-  //       {
-  //         label: "Gestión Nivel 1",
-  //       },
-  //     ],
-  //   },
-  //   component: GestionNivelUnoComponent,
-  // },
-  // {
-  //   path: "gestion-nivel-1/:id/gestion-nivel-2",
-  //   data: {
-  //     path,
-  //     breadcrumb: [
-  //       {
-  //         label: "Gestión Nivel 1",
-  //         link: path,
-  //         tabindex: 0
-  //       },
-  //       {
-  //         label: "Gestión Nivel 2",
-  //         disabled: true
-  //       },
-  //     ],
-  //   },
-  //   component: GestionNivelDosComponent,
-  // },
-  // {
-  //   path: "gestion-nivel-1/:id/gestion-nivel-2/:subId/gestion-nivel-3",
-  //   data: {
-  //     path,
-  //     breadcrumb: [
-  //       {
-  //         label: "Gestión Nivel 1",
-  //         link: path,
-  //         tabindex: 0
-  //       },
-  //       {
-  //         label: "Gestión Nivel 2",
-  //         link: path,
-  //         tabindex: 1
-  //       },
-  //       {
-  //         label: "Gestión Nivel 3",
-  //         disabled: true
-  //       },
-  //     ],
-  //   },
-  //   component: GestionNivelTresComponent,
-  // },
-  // {
-  //   path: "gestion-nivel-1/:id/gestion-nivel-2/:subId/gestion-nivel-3/:nivel3/expresiones",
-  //   data: {
-  //     path,
-  //     breadcrumb: [
-  //       {
-  //         label: "Gestión Nivel 1",
-  //         link: path,
-  //         tabindex: 0
-  //       },
-  //       {
-  //         label: "Gestión Nivel 2",
-  //         link: path,
-  //         tabindex: 1
-  //       },
-  //       {
-  //         label: "Gestión Nivel 3",
-  //         link: path,
-  //         tabindex: 2
-  //       },
-  //       {
-  //         label: "Gestión Expresiones",
-  //         disabled: true,
-  //       },
-  //     ],
-  //   },
-  //   component: GestionExpresionesComponent,
-  // },
-  // {
-  //   path: "gestion-nivel-1/:id/gestion-nivel-2/:subId/gestion-nivel-3/:nivel3/respuestas",
-  //   data: {
-  //     path,
-  //     breadcrumb: [
-  //       {
-  //         label: "Gestión Nivel 1",
-  //         link: path,
-  //         tabindex: 0
-  //       },
-  //       {
-  //         label: "Gestión Nivel 2",
-  //         link: path,
-  //         tabindex: 1
-  //       },
-  //       {
-  //         label: "Gestión Nivel 3",
-  //         link: path,
-  //         tabindex: 2
-  //       },
-  //       {
-  //         label: "Gestión Respuestas",
-  //         disabled: true
-  //       },
-  //     ],
-  //   },
-  //   component: GestionRespuestasComponent,
-  // },
 ];
 
 @NgModule({

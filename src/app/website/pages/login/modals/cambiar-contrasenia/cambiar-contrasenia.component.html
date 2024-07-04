@@ -1,0 +1,62 @@
+<div class="container-fluid formulario-container">
+    <form [formGroup]="formPassword" class="formulario">
+        <div class="grid">
+            <div class="row cabecera">
+                <h4> CAMBIAR CONTRASEÑA INICIAL </h4>
+
+                <p>Llene los campos necesarios para actualizar la contraseña</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="password">Contraseña actual:</label>
+                        <input style="height: 50px;" type="text" formControlName="password" class="form-control"
+                            id="password" name="password">
+                    </div>
+                </div>
+                <p class="mensaje-error" *ngIf="campoPassword.hasError('required')">La contraseña actual es requerida
+                </p>
+
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="newPassword">Nueva contraseña:</label>
+                        <input style="height: 50px;" type="text" formControlName="newPassword" class="form-control"
+                            id="newPassword" name="newPassword" [maxlength]="20">
+                    </div>
+                </div>
+
+                <p class="mensaje-error" *ngIf="campoNewPassword.hasError('minlength')">La contraseña debe tener entre
+                    menos 8 y 20 caracteres</p>
+                <p class="mensaje-error" *ngIf="campoNewPassword.hasError('hasCapitalCase')">La contraseña debe tener al
+                    menos una letra mayuscula</p>
+                <p class="mensaje-error" *ngIf="campoNewPassword.hasError('hasNumber')">La contraseña debe tener al
+                    menos un núnero</p>
+                <p class="mensaje-error" *ngIf="campoNewPassword.hasError('hasSpecialCharacters')">La contraseña debe
+                    tener al menos un caracter especial !@#$%&*</p>
+
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar contraseña:</label>
+                        <input style="height: 50px;" type="text" formControlName="confirmPassword" class="form-control"
+                            id="confirmPassword" name="confirmPassword">
+                    </div>
+                </div>
+
+                <p class="mensaje-error" *ngIf="formPassword.hasError('noSonIguales')">La contraseña no coincide</p>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button [disabled]="formPassword.invalid"  (click)="acept()" class="btn boton-1" type="button">Aceptar</button>
+                </div>
+                <div style="margin-bottom: 2rem;"
+                    class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-sm-12 d-grid gap-2 mt-4">
+                    <button (click)="cancel()" class="btn boton-2" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

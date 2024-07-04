@@ -9,8 +9,8 @@
                 <div class="search-container">
                     <input formControlName="search" type="text" placeholder="Buscar por nombre o email">
                     <button readonly><img src="assets/icons/search.svg"></button>
-                  </div>   
-            </form>           
+                </div>
+            </form>
         </div>
 
         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 col-sm-12 d-grid gap-2">
@@ -46,9 +46,10 @@
                             <div *ngIf="col.field==='estado'" style="font-size: 14px">
                                 <div class="d-grid gap-2">
                                     <button class="btn boton-general" (click)="changeState(rowData, ri)" [ngClass]="{
-                                      'btn-danger':rowData[col.field] === estados.Inactivo,
-                                      'btn-success':rowData[col.field] === estados.Activo
-                                      }">{{rowData[col.field] === estados.Activo? 'Activo':'Inactivo'}}
+                                      'btn-danger':rowData[col.field] !== estados.ACTIVO,
+                                      'btn-success':rowData[col.field] === estados.ACTIVO,
+                                      'btn-warning':rowData[col.field] === estados.PENDIENTE_ACTIVACION,
+                                      }">{{rowData[col.field]}}
                                     </button>
                                 </div>
                             </div>

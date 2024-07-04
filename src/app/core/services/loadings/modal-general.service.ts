@@ -49,7 +49,6 @@ export class ModalGeneralService {
 
   async mensajeModalError(mensaje: string) {
     return await Swal.fire({
-      title: "ERROR",
       text: mensaje,
       icon: "error",
       // confirmButtonColor: '$color-secundario',
@@ -104,20 +103,6 @@ export class ModalGeneralService {
       timerProgressBar: true,
     });
     return respuestaModal;
-  }
-
-  async mensajeTerminosCondiciones() {
-    return await Swal.fire({
-      padding: "1.2em",
-      width: 650,
-      html:
-        "<h5>Términos y condiciones</h5>" +
-        '<embed src="assets/pdf/TerminosCondicionesV2.1.pdf" class="zoom:110%" type="application/pdf" width="110%" height="450px" />',
-      showCloseButton: true,
-      showConfirmButton: false,
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-    });
   }
 
   async mensajeHtml(datosModal: ModalInterface): Promise<boolean> {

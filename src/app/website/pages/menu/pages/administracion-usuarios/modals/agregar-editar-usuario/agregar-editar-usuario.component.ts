@@ -4,8 +4,10 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
 } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import Validation from "src/app/core/helpers/validators/validators-document";
 
 @Component({
   selector: "app-agregar-editar-usuario",
@@ -14,6 +16,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 })
 export class AgregarEditarUsuarioComponent implements OnInit {
   formUser!: FormGroup | any;
+  passwordGenerado!: string;
 
   constructor(
     public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,
@@ -30,29 +33,32 @@ export class AgregarEditarUsuarioComponent implements OnInit {
     this.formUser = this._formBuilder.group({
       email: new FormControl(
         this.data?.data?.email ?? "",
-        Validators.compose([Validators.email, Validators.required])
+        Validators.compose([
+          Validators.email,
+          Validators.required,
+          Validation.validEpnEmail(),
+        ])
       ),
       names: new FormControl(
         this.data?.data?.nombre ?? "",
         Validators.compose([Validators.required])
       ),
-      phone: new FormControl(
-        this.data?.data?.telefono ?? "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10),
-        ])
-      ),
       rol: new FormControl(
         this.data?.data?.rol ?? "",
         Validators.compose([Validators.required])
       ),
+      password: new FormControl("", Validators.compose([Validators.required])),
     });
+  }
+
+  get campoEmail(): AbstractControl {
+    return this.formUser.get("email") as FormControl;
   }
 
   acept() {
     if (this.formUser.valid) {
+      console.log(this.formUser.value, 'value....');
+      this.formUser.value.names = this.formUser.value.names.toUpperCase();
       this.dialogRef.close(this.formUser.value);
     }
   }
@@ -62,4 +68,18 @@ export class AgregarEditarUsuarioComponent implements OnInit {
   }
 
   search() {}
+
+  generarPassword() {
+    this.passwordGenerado = generarRandomico();
+    this.formUser.get("password").setValue(this.passwordGenerado);
+  }
+}
+
+function generarRandomico() {
+  const digitos = "0123456789";
+  let numero = "";
+  for (let i = 0; i < 7; i++) {
+    numero += digitos[Math.floor(Math.random() * 10)];
+  }
+  return `EPN${numero}`;
 }

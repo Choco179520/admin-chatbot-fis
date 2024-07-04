@@ -1,8 +1,27 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MsalService } from "@azure/msal-angular";
 import { AuthenticationResult } from "@azure/msal-common";
 import { catchError, lastValueFrom, map, switchMap, throwError } from "rxjs";
+import {
+  TAMANIO_MODAL,
+  TAMANIO_MODAL_MOVIL,
+} from "src/app/core/constants/valores.constantes";
+import Validation from "src/app/core/helpers/validators/validators-document";
+import { AuthService } from "src/app/core/services/rest/auth.service";
+import { CambiarContraseniaComponent } from "../../modals/cambiar-contrasenia/cambiar-contrasenia.component";
+import { CookiesService } from "src/app/core/services/cookies/cookies.service";
+import { COOKIE_JWT_TOKEN } from "src/app/core/constants/nombres-cookies.constantes";
+import { EncriptadoService } from "src/app/core/services/encriptacion/encriptacion-aes.service";
+import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 
 @Component({
   selector: "app-formulario-inicio-sesion",
@@ -10,21 +29,110 @@ import { catchError, lastValueFrom, map, switchMap, throwError } from "rxjs";
   styleUrls: ["./formulario-inicio-sesion.component.scss"],
 })
 export class FormularioInicioSesionComponent implements OnInit {
+  formularioLogin!: FormGroup;
+  pathImagen = `assets/icons/show.png`;
+  passwordFieldType: string = "password";
+
   constructor(
     private readonly _msalService: MsalService,
-    private readonly _router: Router
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _formBuilder: FormBuilder,
+    private readonly _authService: AuthService,
+    private readonly _dialog: MatDialog,
+    private readonly _coookiesService: CookiesService,
+    private readonly _encriptadoService: EncriptadoService,
+    private readonly _modalGeneralService: ModalGeneralService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formInicializar();
+  }
+
+  formInicializar() {
+    this.formularioLogin = this._formBuilder.group({
+      email: new FormControl(
+        "jonathan.parra01@epn.edu.ec",
+        Validators.compose([
+          Validators.email,
+          Validators.required,
+          Validation.validEpnEmail(),
+        ])
+      ),
+      password: new FormControl(
+        "chChoco20$",
+        Validators.compose([
+          Validators.minLength(5),
+          Validators.maxLength(20),
+          Validators.required,
+        ])
+      ),
+    });
+  }
+
+  get campoEmail(): AbstractControl {
+    return this.formularioLogin.get("email") as FormControl;
+  }
+
+  get campoPassword(): AbstractControl {
+    return this.formularioLogin.get("password") as FormControl;
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType =
+      this.passwordFieldType === "password" ? "text" : "password";
+    if (this.passwordFieldType == "text") {
+      this.pathImagen = `assets/icons/hide.png`;
+    } else {
+      this.pathImagen = `assets/icons/show.png`;
+    }
+  }
+
+  iniciarSesion() {
+    console.log(this.formularioLogin, "formulario login.....");
+    this._authService.iniciarSesion(this.formularioLogin.value).subscribe({
+      next: (resp) => {
+        console.log(resp, "respuesta login");
+        if (resp.accessToken) {
+          this._coookiesService.almacenarCookie(
+            COOKIE_JWT_TOKEN,
+            this._encriptadoService.encriptarInformacionCookie(resp.accessToken)
+          );
+          this._modalGeneralService.toasterMensaje(
+            "success",
+            "Inicio de sesión exitoso"
+          );
+          this._router
+            .navigate(["./menu/administracion-usuarios/gestion-usuarios"])
+            .then();
+        }
+      },
+      error: (err) => {
+        console.error(err, "respuesta error login");
+        err.error.message = err.error.message.split(" :: ")[1];
+        if (err.error.message == "La contraseña no ha sido restablecida") {
+          console.log("restablecer..");
+          let widthModal = TAMANIO_MODAL;
+          if (window.outerWidth < 500) {
+            widthModal = TAMANIO_MODAL_MOVIL;
+          }
+
+          const dialogRef = this._dialog.open(CambiarContraseniaComponent, {
+            width: widthModal,
+            data: { ...this.formularioLogin.value },
+            disableClose: true,
+          });
+
+          dialogRef.afterClosed().subscribe((result) => {});
+        } else {
+          this._modalGeneralService.toasterMensaje("error", err.error.message);
+        }
+      },
+    });
+  }
 
   inicioOffice() {
     console.log("inicio de sesion......");
-
-    // this._router
-    // .navigateByUrl('/menu', { skipLocationChange: true })
-    // .then(() => {
-    // this._router.navigate(['./menu-principal']).then();
-    // });
     this._msalService.instance
       .handleRedirectPromise()
       .then((res) => {
@@ -59,34 +167,5 @@ export class FormularioInicioSesionComponent implements OnInit {
       .catch((err) => {});
   }
 
-  protected handleError(error: any) {
-    // console.log('UsuarioService');
-    if ("error" in error) {
-      // Alert.General({
-      //   icon: 'error',
-      //   title: 'Ups algo paso!',
-      //   text: error.error?.message ?? '',
-      //   isJustify: false,
-      //   showCancelButton: false,
-      // });
-    }
-    if ("errorCode" in error) {
-      switch (error.errorCode) {
-        case "interaction_in_progress":
-          // Alert.General({
-          //   icon: 'error',
-          //   title: 'Ups algo paso!',
-          //   text: 'Cierre el navegador e intente de nuevo',
-          //   isJustify: false,
-          //   showCancelButton: false,
-          // });
-          break;
-        default:
-          console.warn(error.errorCode);
-          break;
-      }
-    }
-    const err = new Error("Ups algo paso!");
-    return throwError(() => err);
-  }
+  recuperarPassword() {}
 }

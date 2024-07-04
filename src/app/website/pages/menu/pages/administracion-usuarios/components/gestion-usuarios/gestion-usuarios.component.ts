@@ -8,11 +8,16 @@ import {
   TAMANIO_MODAL,
   TAMANIO_MODAL_MOVIL,
 } from "src/app/core/constants/valores.constantes";
-import { ESTADOS } from "src/app/core/enums/estados";
+import { EstadoUsuarioEnum } from "src/app/core/enums/estados";
 import { ModalGeneralService } from "src/app/core/services/loadings/modal-general.service";
 import { ModalInterface } from "src/app/core/interfaces/modal.interface";
 import { COLOR_PRIMARIO } from "src/app/core/constants/colores-constantes";
-import { FormGroup, FormBuilder, FormControl, AbstractControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  AbstractControl,
+} from "@angular/forms";
 
 @Component({
   selector: "app-gestion-usuarios",
@@ -28,13 +33,13 @@ export class GestionUsuariosComponent implements OnInit {
   loading = false;
   columnas = COLUMNA_USUARIOS;
 
-  estados = ESTADOS;
+  estados = EstadoUsuarioEnum;
 
   constructor(
     private readonly _usuarioService: UsuarioService,
     private readonly _dialog: MatDialog,
     private readonly _modalGeneralService: ModalGeneralService,
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -47,28 +52,28 @@ export class GestionUsuariosComponent implements OnInit {
   formInicializar() {
     this.registros = this.registros;
     this.formularioBusqueda = this._formBuilder.group({
-      search: new FormControl(''),
+      search: new FormControl(""),
     });
   }
 
   escucharCampoBusqueda(): void {
     const busquedaC = this.campoBusqueda;
-    busquedaC.valueChanges.subscribe((bus) => {      
-      this.registros = this.usuarios.filter((entidad: any) =>
-        entidad.nombre.toLowerCase().includes(bus.toLowerCase()) ||
-        entidad.email.toLowerCase().includes(bus.toLowerCase())
-      );      
+    busquedaC.valueChanges.subscribe((bus) => {
+      this.registros = this.usuarios.filter(
+        (entidad: any) =>
+          entidad.nombre.toLowerCase().includes(bus.toLowerCase()) ||
+          entidad.email.toLowerCase().includes(bus.toLowerCase())
+      );
     });
   }
 
   get campoBusqueda(): AbstractControl {
-    return this.formularioBusqueda.get('search') as FormControl;
+    return this.formularioBusqueda.get("search") as FormControl;
   }
 
   getUsers() {
     this._usuarioService.getUsers().subscribe({
       next: (respUsers) => {
-        console.log(respUsers, ";respuesta findall...");
         this.usuarios = respUsers;
         this.registros = this.usuarios;
       },
@@ -92,13 +97,14 @@ export class GestionUsuariosComponent implements OnInit {
         const jsonUser = {
           nombre: result.names,
           email: result.email,
-          telefono: result.phone,
           rol: result.rol,
+          password: result.password
         };
         this._usuarioService.postUsuario(jsonUser).subscribe({
           next: (respUser: any) => {
             this.usuarios.unshift(respUser);
             this.registros = this.usuarios;
+            this._modalGeneralService.toasterMensaje('success', 'Se agrego exitosamente el usuario');
           },
           error: (err) => {
             console.error(err, "error...");
@@ -112,25 +118,33 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   changeState(rowData: any, ri: number) {
-    this.loading = true;
-    const estadoEditar = {
-      estado: +!rowData.estado,
-    };
+    if (rowData.estado == EstadoUsuarioEnum.PENDIENTE_ACTIVACION) {
+      this._modalGeneralService.toasterMensaje(
+        "error",
+        "No se puede editar el estado de un usuario que no ha restablecido su contraseña"
+      );
+    } else {
+      this.loading = true;
+      const estadoEditar = {
+        estado: obtenerEstado(rowData.estado),
+      };
 
-    this._usuarioService.putUsuario(estadoEditar, rowData.id).subscribe({
-      next: (resp) => {
-        this.loading = false;
-        this.usuarios[ri].estado = resp.estado;
-        this.registros = this.usuarios;
-      },
-      error: (err) => {
-        this.loading = false;
-        this._modalGeneralService.toasterMensaje(
-          "error",
-          "No se pudo actualizar."
-        );
-      },
-    });
+      this._usuarioService.putUsuario(estadoEditar, rowData.id).subscribe({
+        next: (resp) => {
+          this.loading = false;
+          this.usuarios[ri].estado = resp.estado;
+          this.registros = this.usuarios;
+          this._modalGeneralService.toasterMensaje('success', 'Se ha actualizado exitosamente el estado');
+        },
+        error: (err) => {
+          this.loading = false;
+          this._modalGeneralService.toasterMensaje(
+            "error",
+            "No se pudo actualizar."
+          );
+        },
+      });
+    }
   }
 
   editUser(rowData: any, ri: number) {
@@ -151,7 +165,6 @@ export class GestionUsuariosComponent implements OnInit {
         const jsonUser = {
           nombre: result.names,
           email: result.email,
-          telefono: result.phone,
           rol: result.rol,
         };
         this._usuarioService.putUsuario(jsonUser, rowData.id).subscribe({
@@ -160,7 +173,6 @@ export class GestionUsuariosComponent implements OnInit {
             this.usuarios[ri].nombre = respUser.nombre;
             this.usuarios[ri].email = respUser.email;
             this.usuarios[ri].rol = respUser.rol;
-            this.usuarios[ri].telefono = respUser.telefono;
             this.registros = this.usuarios;
           },
           error: (err) => {
@@ -205,4 +217,13 @@ export class GestionUsuariosComponent implements OnInit {
       });
     }
   }
+}
+
+function obtenerEstado(estado: any) {
+  const estados: any = {
+    INAC: EstadoUsuarioEnum.ACTIVO,
+    ACT: EstadoUsuarioEnum.INACTIVO,
+    BLOQ_LOG: EstadoUsuarioEnum.ACTIVO,
+  };
+  return estados[estado];
 }
