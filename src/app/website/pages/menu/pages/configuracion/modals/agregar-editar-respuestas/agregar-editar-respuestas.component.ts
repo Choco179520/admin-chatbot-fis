@@ -39,7 +39,7 @@ export class AgregarEditarRespuestasComponent implements OnInit {
       ),
       action: new FormControl(
         this.data?.action ?? "",
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(1)])
       ),
       path: new FormControl(
         this.data?.path ?? "",

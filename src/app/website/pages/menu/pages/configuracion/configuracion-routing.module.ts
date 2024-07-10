@@ -4,6 +4,7 @@ import { GestionExpresionesComponent } from "./components/gestion-expresiones/ge
 import { GestionRespuestasComponent } from "./components/gestion-respuestas/gestion-respuestas.component";
 import { GestionDocumentosComponent } from "./components/gestion-documentos/gestion-documentos.component";
 import { EstaLogeadoGuard } from "src/app/core/services/guards/esta-logeado.guard";
+import { RoleGuard } from "src/app/core/services/guards/rol.guard";
 
 const path = "./menu/configuracion/gestion-documentos";
 
@@ -22,9 +23,10 @@ const routes: Routes = [
           label: "Gestión Documentos",
         },
       ],
+      data: { expectedRoles: ["BASIC", "ADMIN"] },
     },
     component: GestionDocumentosComponent,
-    canActivate: [EstaLogeadoGuard],
+    canActivate: [EstaLogeadoGuard, RoleGuard],
   },
   {
     path: "gestion-documentos/:id/:title/respuestas",
@@ -41,9 +43,10 @@ const routes: Routes = [
           disabled: true,
         },
       ],
+      data: { expectedRoles: ["BASIC", "ADMIN"] },
     },
     component: GestionRespuestasComponent,
-    canActivate: [EstaLogeadoGuard],
+    canActivate: [EstaLogeadoGuard, RoleGuard],
   },
   {
     path: "gestion-documentos/:id/:title/expresiones",
@@ -60,9 +63,10 @@ const routes: Routes = [
           disabled: true,
         },
       ],
+      data: { expectedRoles: ["BASIC", "ADMIN"] },
     },
     component: GestionExpresionesComponent,
-    canActivate: [EstaLogeadoGuard],
+    canActivate: [EstaLogeadoGuard, RoleGuard],
   },
 ];
 

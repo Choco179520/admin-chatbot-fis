@@ -105,6 +105,34 @@ export class GestionExpresionesComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        console.log(result);
+        
+        const json = {
+          utterance: result.utterance,
+          estado:0,
+          eliminar: 0,
+          document: +this.id
+        };
+
+        this._documentService.postUtterances(json).subscribe({
+          next: (resp) => {            
+            this.registros.unshift(resp);
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              "success",
+              "Se registro exitosamente"
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              "error",
+              "Error al registrar la información, intentelo nuevamente"
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }
@@ -138,7 +166,6 @@ export class GestionExpresionesComponent {
   }
 
   editUtterance(rowData: any, ri: number) {
-
     let widthModal = TAMANIO_MODAL;
     if (window.outerWidth < 500) {
       widthModal = TAMANIO_MODAL_MOVIL;

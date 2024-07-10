@@ -7,7 +7,9 @@ import { UsuarioService } from "../core/services/rest/usuario.service";
 import { TarjetaNivelesComponent } from "./components/tarjeta-niveles/tarjeta-niveles.component";
 import { CrearEditarNivelesComponent } from "./components/crear-editar-niveles/crear-editar-niveles.component";
 import { TituloPipe } from "../core/pipes/titulo.pipe";
-import { TarjetaUltimoNivelComponent } from './components/tarjeta-ultimo-nivel/tarjeta-ultimo-nivel.component';
+import { TarjetaUltimoNivelComponent } from "./components/tarjeta-ultimo-nivel/tarjeta-ultimo-nivel.component";
+import { DisableForRolesDirective } from "../core/directives/disable-for-roles.directive";
+import { AuthService } from "../core/services/rest/auth.service";
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { TarjetaUltimoNivelComponent } from './components/tarjeta-ultimo-nivel/t
     CrearEditarNivelesComponent,
     TarjetaUltimoNivelComponent,
     TituloPipe,
+    DisableForRolesDirective,
   ],
   imports: [
     CommonModule,
@@ -32,8 +35,9 @@ import { TarjetaUltimoNivelComponent } from './components/tarjeta-ultimo-nivel/t
     CrearEditarNivelesComponent,
     TarjetaUltimoNivelComponent,
     TituloPipe,
+    DisableForRolesDirective,
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, AuthService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

@@ -19,6 +19,7 @@ import { navbarData } from "./nav-data";
 import { Router } from "@angular/router";
 import { environment } from "../../../../environments/environment";
 import { CookiesService } from "src/app/core/services/cookies/cookies.service";
+import { AuthService } from "src/app/core/services/rest/auth.service";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -50,7 +51,7 @@ export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
   screenWidth = 0;
-  navData: any;
+  navData: any = [];
   multiple: boolean = false;
 
   @HostListener("window:resize", ["$event"])
@@ -67,11 +68,16 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private readonly _cookiesService: CookiesService
+    private readonly _cookiesService: CookiesService,
+    private readonly _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.navData = navbarData;
+    for (let nav of navbarData) {      
+      if (nav.roles?.includes(this._authService.getRole())) {        
+        this.navData.push(nav); 
+      }
+    }
     this.screenWidth = window.innerWidth;
   }
 

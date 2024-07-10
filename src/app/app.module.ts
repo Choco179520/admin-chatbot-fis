@@ -15,6 +15,7 @@ import { environment } from "src/environments/environment";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { RequestInterceptorService } from "./core/services/interceptors/request-interceptor.service";
 import { ResponseInterceptorService } from "./core/services/interceptors/response-interceptor.service";
+import { DisableForRolesDirective } from "./core/directives/disable-for-roles.directive";
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({

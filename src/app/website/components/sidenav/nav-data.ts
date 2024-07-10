@@ -10,7 +10,8 @@ export const navbarData: INavbarData[] = [
             //     routeLink: './administracion-usuarios/gestion-usuarios',
             //     label: 'Administradores',
             // }
-        ]
+        ],
+        roles: ['ADMIN']
     },
     {
         routeLink: './configuracion/gestion-documentos',
@@ -21,7 +22,8 @@ export const navbarData: INavbarData[] = [
             //     routeLink: './configuracion/gestion-nivel-1',
             //     label: 'Módulos',
             // },
-        ]
+        ],
+        roles: ['ADMIN', 'BASIC']
     },
     {
         routeLink: './cerrar-sesion',
@@ -32,7 +34,8 @@ export const navbarData: INavbarData[] = [
                 routeLink: '/',
                 label: 'Finalizar Sesión',
             },
-        ]
+        ],
+        roles: ['ADMIN', 'BASIC']
     },
 
 ];

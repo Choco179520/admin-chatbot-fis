@@ -8,7 +8,6 @@ export const environment = {
   host: 'https://localhost:3001', // casa
   // host: 'https://172.29.80.63:3000', // universidad
   pathApi: 'api-backoffice-chatbot',
-  // permisosAzure: ['user.read','openid', 'profile'],
   permisosAzure: ['user.read','openid', 'profile'],
   urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
   clientId: '2c490376-e431-46ea-82e0-0403c3589245',

@@ -105,7 +105,7 @@ export class FormularioInicioSesionComponent implements OnInit {
             "Inicio de sesión exitoso"
           );
           this._router
-            .navigate(["./menu/administracion-usuarios/gestion-usuarios"])
+            .navigate(["./menu/configuracion/gestion-documentos"])
             .then();
         }
       },

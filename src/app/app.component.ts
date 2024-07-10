@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin-chatbot';
+  saltoLinea = false;
+  loadingText: string = 'Espere un momento...';
+
+  constructor() {
+    if (window.outerWidth < 500) {
+      this.saltoLinea = true;
+    }
+  }
 }

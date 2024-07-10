@@ -17,6 +17,7 @@ import { AgregarEditarRespuestasComponent } from "../../modals/agregar-editar-re
 import { MenuItem } from "primeng/api";
 import { DocumentService } from "src/app/core/services/rest/documents.service";
 import { ModalInterface } from "src/app/core/interfaces/modal.interface";
+import { removeEmptyValues } from "src/app/core/functions/funciones-generales";
 
 @Component({
   selector: "app-gestion-respuestas",
@@ -118,12 +119,43 @@ export class GestionRespuestasComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result, "result.....");
+        result = removeEmptyValues(result);
+        const json = {
+          response: JSON.stringify(result),
+          document: +this.id,
+          estado: 0,
+          eliminar: 0,
+        };
+        this._documentService.postResponses(json).subscribe({
+          next: (resp) => {
+            this.registros.unshift({
+              document: this.registros[0].document,
+              id: resp.id,
+              eliminar: resp.eliminar,
+              estado: resp.estado,
+              response: JSON.parse(resp.response),
+            });
+            this.documentos = this.registros;
+            this.loading = false;
+            this._modalGeneralService.toasterMensaje(
+              "success",
+              "Se registro exitosamente"
+            );
+          },
+          error: (err) => {
+            console.error(err, "error update");
+            this._modalGeneralService.toasterMensaje(
+              "error",
+              "Error al registrar la información, intentelo nuevamente"
+            );
+            this.loading = false;
+          },
+        });
       }
     });
   }
 
-  async deleteResponse(rowData: any, ri: number) {    
+  async deleteResponse(rowData: any, ri: number) {
     const infoModal: ModalInterface = {
       titulo: "¿Estás seguro que deseas eliminar la respuesta?",
       icono: "question",
@@ -136,7 +168,7 @@ export class GestionRespuestasComponent {
         eliminar: Number(!rowData.eliminar),
         document: rowData.document.id,
       };
-      
+
       this._documentService.putResponsesById(rowData.id, jsonUpdate).subscribe({
         next: (resp) => {
           this.registros[ri].eliminar = resp.eliminar;
@@ -163,15 +195,17 @@ export class GestionRespuestasComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        result = removeEmptyValues(result);
+
         const json = {
-          response: JSON.stringify({...result}),
+          response: JSON.stringify({ ...result }),
           estado: 0,
           eliminar: rowData.eliminar,
           document: rowData.document.id,
         };
 
         this._documentService.putResponsesById(rowData.id, json).subscribe({
-          next: (resp) => {            
+          next: (resp) => {
             this.registros[ri].response = JSON.parse(resp.response);
             this.documentos = this.registros;
             this.loading = false;

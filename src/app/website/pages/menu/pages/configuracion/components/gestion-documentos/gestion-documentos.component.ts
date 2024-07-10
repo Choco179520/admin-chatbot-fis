@@ -16,6 +16,7 @@ import {
   TAMANIO_MODAL_MOVIL,
 } from "src/app/core/constants/valores.constantes";
 import { ModalInterface } from "src/app/core/interfaces/modal.interface";
+import { CargandoService } from "src/app/core/services/loadings/cargando.service";
 
 @Component({
   selector: "app-gestion-documentos",
@@ -50,7 +51,8 @@ export class GestionDocumentosComponent {
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _documentService: DocumentService
+    private readonly _documentService: DocumentService,
+    private readonly _cargandoService: CargandoService
   ) {}
 
   ngOnInit(): void {
@@ -273,11 +275,15 @@ export class GestionDocumentosComponent {
   }
 
   sincronize() {
+    this._cargandoService.habilitarCargando();
     this._documentService.getSyncronize().subscribe({
       next: (resp) => {
         console.log(resp, "respuesta....");
+        // this._cargandoService.deshabilitarCargando();
       },
-      error: (err) => {},
+      error: (err) => {
+        // this._cargandoService.deshabilitarCargando();
+      },
     });
   }
 }

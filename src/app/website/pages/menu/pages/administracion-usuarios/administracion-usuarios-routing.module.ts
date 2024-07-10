@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { GestionUsuariosComponent } from "./components/gestion-usuarios/gestion-usuarios.component";
 import { EstaLogeadoGuard } from "src/app/core/services/guards/esta-logeado.guard";
+import { RoleGuard } from "src/app/core/services/guards/rol.guard";
 
 const routes: Routes = [
   {
@@ -14,9 +15,10 @@ const routes: Routes = [
     data: {
       titulo: "Mis productos",
       botonRegresar: false,
+      data: { expectedRoles: ["ADMIN"] },
     },
     component: GestionUsuariosComponent,
-    canActivate: [EstaLogeadoGuard],
+    canActivate: [EstaLogeadoGuard, RoleGuard],
   },
 ];
 
