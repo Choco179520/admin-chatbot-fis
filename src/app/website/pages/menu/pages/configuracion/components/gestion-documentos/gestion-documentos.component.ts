@@ -244,29 +244,6 @@ export class GestionDocumentosComponent {
   getDocuments() {
     this._documentService.getDocuments().subscribe({
       next: (resp) => {
-        // this.registros = [
-        //   {
-        //     id: "matricula-ordinaria",
-        //     responses: 3,
-        //     utterances: 4,
-        //   },
-        //   {
-        //     id: "requisitos-matricula-ordinaria",
-        //     responses: 3,
-        //     utterances: 4,
-        //   },
-        //   {
-        //     id: "proceso-matricula-ordinaria",
-        //     responses: 3,
-        //     utterances: 4,
-        //   },
-        //   {
-        //     id: "matricula-ordinaria",
-        //     responses: 3,
-        //     utterances: 4,
-        //   },
-        // ];
-
         this.registros = resp;
         this.documentos = this.registros;
       },
@@ -278,11 +255,13 @@ export class GestionDocumentosComponent {
     this._cargandoService.habilitarCargando();
     this._documentService.getSyncronize().subscribe({
       next: (resp) => {
-        console.log(resp, "respuesta....");
-        // this._cargandoService.deshabilitarCargando();
+        this.registros = resp.respRegistros;
+        this.documentos = this.registros;
+        this._cargandoService.deshabilitarCargando();
       },
       error: (err) => {
-        // this._cargandoService.deshabilitarCargando();
+        console.error(err);
+        this._cargandoService.deshabilitarCargando();
       },
     });
   }

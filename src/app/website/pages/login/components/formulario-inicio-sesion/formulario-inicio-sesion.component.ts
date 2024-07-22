@@ -91,6 +91,8 @@ export class FormularioInicioSesionComponent implements OnInit {
   iniciarSesion() {
     this._authService.iniciarSesion(this.formularioLogin.value).subscribe({
       next: (resp) => {
+        console.log(resp, 'respuesta...');
+        
         if (resp.accessToken) {
           this._coookiesService.almacenarCookie(
             COOKIE_JWT_TOKEN,
@@ -107,6 +109,24 @@ export class FormularioInicioSesionComponent implements OnInit {
           this._router
             .navigate(["./menu/configuracion/gestion-documentos"])
             .then();
+        } else {
+          resp.error.message = resp.error.message.split(" :: ")[1];
+          if (resp.error.message == "La contraseña no ha sido restablecida") {
+            let widthModal = TAMANIO_MODAL;
+            if (window.outerWidth < 500) {
+              widthModal = TAMANIO_MODAL_MOVIL;
+            }
+  
+            const dialogRef = this._dialog.open(CambiarContraseniaComponent, {
+              width: widthModal,
+              data: { ...this.formularioLogin.value },
+              disableClose: true,
+            });
+  
+            dialogRef.afterClosed().subscribe((result) => {});
+          } else {
+            this._modalGeneralService.toasterMensaje("error", resp.error.message);
+          }
         }
       },
       error: (err) => {

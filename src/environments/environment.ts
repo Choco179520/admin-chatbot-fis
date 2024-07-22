@@ -10,10 +10,10 @@ export const environment = {
   pathApi: 'api-backoffice-chatbot',
   permisosAzure: ['user.read','openid', 'profile'],
   urlInformacionUsuarioAzure: 'https://graph.microsoft.com/v1.0/me',
-  clientId: '2c490376-e431-46ea-82e0-0403c3589245',
-  tenantId: '682a4e6a-a77f-4958-a3ac-9e266d18aa37',
+  clientId: 'c8041c50-c2db-4333-bb8d-48d74dbd8aae',
+  tenantId: 'f9366d2a-35c5-4e3c-834a-60d607325ecb',
   urlMicrosoft: 'https://login.microsoftonline.com/',
-  redirectUri: 'http://localhost:4200/inicio-sesion',
+  redirectUri: 'http://localhost:4200/menu',
   // 172.29.80.63
 };
 
