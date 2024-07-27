@@ -15,7 +15,7 @@
 
     <div class="form-login">
       <form class="login-form" [formGroup]="formularioLogin">
-        <h6></h6>
+        <p>Por favor, complete la información solicitada a continuación para iniciar sesión en su cuenta:</p>
         <input formControlName="email" type="text" placeholder="Email" />
         <h5 *ngIf="campoEmail.hasError('email')">El correo ingresado es incorrecto</h5>
         <h5 *ngIf="campoEmail.hasError('emailDomain')">El correo ingresado no pertenece a la EPN</h5>
@@ -26,13 +26,13 @@
         </div>
 
         <button (click)="iniciarSesion()" [disabled]="formularioLogin.invalid" type="submit" class="btn boton-1">Login</button>
-        <p class="message">Olvidaste tu contraseña? <a (click)="recuperarPassword()">Recuperar contraseña</a></p>
+        <!-- <p class="message">Olvidaste tu contraseña? <a (click)="recuperarPassword()">Recuperar contraseña</a></p> -->
       </form>
     </div>
 
-    <button type="submit" class="btn boton-1" (click)="inicioOffice()">
+    <!-- <button type="submit" class="btn boton-1" (click)="inicioOffice()">
       <img style="width: 10%; margin-right: 2rem;" src="assets/icons/microsoft.svg" alt="icono_microsoft">
       Iniciar sesión
-    </button>
+    </button> -->
   </div>
 </div>

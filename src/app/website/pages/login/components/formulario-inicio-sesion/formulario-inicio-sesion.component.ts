@@ -52,7 +52,7 @@ export class FormularioInicioSesionComponent implements OnInit {
   formInicializar() {
     this.formularioLogin = this._formBuilder.group({
       email: new FormControl(
-        "jonathan.parra01@epn.edu.ec",
+        "",
         Validators.compose([
           Validators.email,
           Validators.required,
@@ -60,7 +60,7 @@ export class FormularioInicioSesionComponent implements OnInit {
         ])
       ),
       password: new FormControl(
-        "chChoco20$",
+        "",
         Validators.compose([
           Validators.minLength(5),
           Validators.maxLength(20),
@@ -93,10 +93,10 @@ export class FormularioInicioSesionComponent implements OnInit {
       next: (resp) => {
         console.log(resp, 'respuesta...');
         
-        if (resp.accessToken) {
+        if (resp.token) {
           this._coookiesService.almacenarCookie(
             COOKIE_JWT_TOKEN,
-            this._encriptadoService.encriptarInformacionCookie(resp.accessToken)
+            this._encriptadoService.encriptarInformacionCookie(resp.token)
           );
           this._coookiesService.almacenarCookie(
             COOKIE_USER,

@@ -46,10 +46,10 @@ export class GestionUsuariosComponent implements OnInit {
     private readonly _cookiesService: CookiesService,
     private readonly _encriptadoService: EncriptadoService
   ) {
-    const userEncript = this._cookiesService.obtenerCookie(COOKIE_USER);    
+    const userEncript = this._cookiesService.obtenerCookie(COOKIE_USER);
     this.user = JSON.parse(
       this._encriptadoService.desencriptarInformacionCookie(userEncript)
-    );    
+    );
   }
 
   ngOnInit(): void {
@@ -222,6 +222,11 @@ export class GestionUsuariosComponent implements OnInit {
           this.usuarios.splice(ri, 1);
           this.registros = this.usuarios;
           this.loading = false;
+
+          this._modalGeneralService.toasterMensaje(
+            "success",
+            "Se eliminó exitosamente el usuario"
+          );
         },
         error: (err) => {
           console.error(err, "err respDelete....");
