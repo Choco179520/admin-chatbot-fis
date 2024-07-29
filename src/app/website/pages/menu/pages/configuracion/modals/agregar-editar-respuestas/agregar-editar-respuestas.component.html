@@ -21,6 +21,17 @@
                 </div>
             </div>
 
+            <div class="row" *ngIf="campoType.value == 'image'">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
+                    <div class="form-group">
+                        <label class="subtitulos" for="certificadoDigital">Imagen</label>
+                        <input accept="image/png" type="file" class="form-control textos" id="imagen"
+                            placeholder="Ingrese el nombre del representante legal" (change)="cargarImagen($event)" />
+                    </div>
+                </div>
+                <p class="mensaje-png">Solo se permite cargar imagenes en formato .png</p>
+            </div>
+
             <div class="row">
                 <div *ngIf="campoType.value == 'text'" class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-sm-12 mt-3">
                     <div class="form-group">

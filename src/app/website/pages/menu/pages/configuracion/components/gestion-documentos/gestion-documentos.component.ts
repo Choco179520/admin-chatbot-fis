@@ -255,6 +255,8 @@ export class GestionDocumentosComponent {
     this._cargandoService.habilitarCargando();
     this._documentService.getSyncronize().subscribe({
       next: (resp) => {
+        console.log(resp);
+        
         this.registros = resp.respRegistros;
         this.documentos = this.registros;
         this._cargandoService.deshabilitarCargando();

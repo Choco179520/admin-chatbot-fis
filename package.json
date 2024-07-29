@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prod": "ng build --production --aot --build-optimizer --optimization --vendor-chunk=true --source-map=false"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "date-fns": "^3.6.0",
+    "firebase": "^10.12.4",
     "jsencrypt": "^3.3.2",
     "ngx-cookie-service": "^17.1.0",
     "ngx-spinner": "^15.0.1",

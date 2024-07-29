@@ -55,8 +55,8 @@
                         </div>
 
                         <div *ngIf="col.field==='response'" style="font-size: 14px">
-                            <p> {{rowData?.response?.content ? rowData?.response?.content : rowData?.response?.name}}
-                            </p>
+                            <p *ngIf="rowData?.response?.type !== 'image'" > {{rowData?.response?.content ? rowData?.response?.content : rowData?.response?.name }}</p>
+                            <p *ngIf="rowData?.response?.type == 'image'" > {{rowData?.response?.alt ? rowData?.response?.alt : rowData?.response?.name }}</p>
                         </div>
 
                         <div *ngIf="col.field==='type'" style="font-size: 14px">

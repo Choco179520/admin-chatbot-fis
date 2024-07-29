@@ -26,7 +26,6 @@ export class RoleGuard implements CanActivate {
     }
 
     // Redirigir a una página de acceso denegado o a la página de inicio de sesión
-    // this.router.navigate(["access-denied"]);
     return false;
   }
 }

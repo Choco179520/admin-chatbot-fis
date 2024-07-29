@@ -27,7 +27,7 @@ export class AgregarEditarRespuestasComponent implements OnInit {
     this.formInicializar();
   }
 
-  formInicializar() {    
+  formInicializar() {
     this.formResponse = this._formBuilder.group({
       type: new FormControl(
         this.data?.type ?? "text",
@@ -53,17 +53,39 @@ export class AgregarEditarRespuestasComponent implements OnInit {
         this.data?.alt ?? "",
         Validators.compose([Validators.minLength(10)])
       ),
+      image: new FormControl(""),
     });
   }
 
   get campoType(): AbstractControl {
-    return this.formResponse.get('type') as FormControl;
+    return this.formResponse.get("type") as FormControl;
   }
 
   acept() {
     if (this.formResponse.valid) {
       this.dialogRef.close(this.formResponse.value);
     }
+  }
+
+  async cargarImagen(event: any) {
+    const documento = await this.convertirImagenBase64(event.target.files[0]);    
+    let nombre = event.target.files[0].name;
+    nombre = nombre.toLowerCase();
+    nombre = nombre.replace(/ /g, '_');
+    nombre = nombre.replace(/-/g, '_')
+    this.formResponse.get("path").setValue(nombre);
+    this.formResponse.get("image").setValue(documento);
+  }
+
+  async convertirImagenBase64(imagen: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        resolve(event.target.result);
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(imagen);
+    });
   }
 
   cancel(): void {

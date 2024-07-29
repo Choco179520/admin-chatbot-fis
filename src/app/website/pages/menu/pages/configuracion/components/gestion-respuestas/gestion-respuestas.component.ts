@@ -195,13 +195,18 @@ export class GestionRespuestasComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        let image;
         result = removeEmptyValues(result);
-
+        if (result.image) {
+          image = result.image;
+          delete result.image;
+        }
         const json = {
           response: JSON.stringify({ ...result }),
           estado: 0,
           eliminar: rowData.eliminar,
           document: rowData.document.id,
+          image
         };
 
         this._documentService.putResponsesById(rowData.id, json).subscribe({
@@ -242,6 +247,8 @@ export class GestionRespuestasComponent {
     this.loading = true;
     this._documentService.getResponsesById(this.id).subscribe({
       next: (resp) => {
+        console.log(resp, 'respuesta...');
+        
         this.registros = resp;
         this.documentos = this.registros;
         this.loading = false;
