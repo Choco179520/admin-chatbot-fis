@@ -42,23 +42,23 @@ export class AgregarEditarDocumentosComponent implements OnInit {
       ),
       content: new FormControl(
         { value: '', disabled: this.data ? true : false },
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(2)])
       ),
       action: new FormControl(
         { value: '', disabled: this.data ? true : false },
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(2)])
       ),
       path: new FormControl(
         { value: '', disabled: this.data ? true : false },
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(2)])
       ),
       name: new FormControl(
         { value: '', disabled: this.data ? true : false },
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(2)])
       ),
       alt: new FormControl(
         { value: '', disabled: this.data ? true : false },
-        Validators.compose([Validators.minLength(10)])
+        Validators.compose([Validators.minLength(2)])
       ),
     });
   }

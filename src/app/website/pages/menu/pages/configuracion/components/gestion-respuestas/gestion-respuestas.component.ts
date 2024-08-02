@@ -119,12 +119,18 @@ export class GestionRespuestasComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        let image;
         result = removeEmptyValues(result);
+        if (result.image) {
+          image = result.image;
+          delete result.image;
+        }
         const json = {
           response: JSON.stringify(result),
           document: +this.id,
           estado: 0,
           eliminar: 0,
+          image
         };
         this._documentService.postResponses(json).subscribe({
           next: (resp) => {
